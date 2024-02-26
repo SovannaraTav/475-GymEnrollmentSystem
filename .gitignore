@@ -1,0 +1,4 @@
+# Folders and its files not to include to the GitHub repository
+/shelf/
+/.idea/
+/out/
