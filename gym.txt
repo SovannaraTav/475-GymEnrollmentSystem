@@ -1,0 +1,76 @@
+\c postgres
+DROP DATABASE gym;
+CREATE DATABASE gym;
+\c gym
+
+-- Creates Member table for the gym database
+CREATE TABLE Member (
+    ID SERIAL,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(40) NOT NULL UNIQUE,
+    PhoneNumber VARCHAR(10) NOT NULL,
+    LastPayment DATE,
+    StartDate DATE NOT NULL,
+    MemberNumber VARCHAR(15) NOT NULL UNIQUE,
+
+    PRIMARY KEY (ID)
+);
+
+-- Creates Instructor table for the gym database
+CREATE TABLE Instructor (
+    ID SERIAL,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(40) NOT NULL UNIQUE,
+    PhoneNumber VARCHAR(10) NOT NULL,
+    InstructorNumber VARCHAR(15) NOT NULL UNIQUE,
+
+    PRIMARY KEY (ID)
+);
+
+-- Creates ClassType table for the gym database
+CREATE TABLE ClassType (
+    ID SERIAL,
+    Name VARCHAR(20) NOT NULL,
+
+    PRIMARY KEY (ID)
+);
+
+-- Creates Room table for the gym database
+CREATE TABLE Room (
+    ID SERIAL,
+    RoomNumber VARCHAR(20) NOT NULL UNIQUE,
+    Capacity INTEGER NOT NULL,
+
+    PRIMARY KEY (ID)
+);
+
+-- Creates Class table for the gym database
+CREATE TABLE Class (
+    ID SERIAL,
+    TypeID INTEGER NOT NULL,
+    InstructorID INTEGER,
+    RoomID INTEGER NOT NULL,
+    StartTime TIMESTAMP NOT NULL,
+    Duration INTERVAL NOT NULL,
+    ClassNumber VARCHAR(15) NOT NULL UNIQUE,
+
+    PRIMARY KEY (ID),
+    FOREIGN KEY (TypeID) REFERENCES ClassType(ID) DEFERRABLE INITIALLY DEFERRED,
+    FOREIGN KEY (InstructorID) REFERENCES Instructor(ID) DEFERRABLE INITIALLY DEFERRED,
+    FOREIGN KEY (RoomID) REFERENCES Room(ID) DEFERRABLE INITIALLY DEFERRED
+);
+
+-- Creates Participants table for the gym database
+CREATE TABLE Participants (
+    ClassID INTEGER NOT NULL,
+    MemberID INTEGER NOT NULL,
+
+    PRIMARY KEY (ClassID, MemberID),
+    FOREIGN KEY (ClassID) REFERENCES Class(ID) DEFERRABLE INITIALLY DEFERRED,
+    FOREIGN KEY (MemberID) REFERENCES Member(ID) DEFERRABLE INITIALLY DEFERRED
+);
+
+\c postgres
+\c gym
