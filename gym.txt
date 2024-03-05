@@ -72,5 +72,70 @@ CREATE TABLE Participants (
     FOREIGN KEY (MemberID) REFERENCES Member(ID) DEFERRABLE INITIALLY DEFERRED
 );
 
+-- Starter data inserted into the Member table
+INSERT INTO Member
+    (FirstName, LastName, Email, PhoneNumber, LastPayment, StartDate, MemberNumber)
+VALUES
+    ('Alice', 'Johnson', 'alicej@email.com', '1112223333', '2023-01-01', '2023-01-10', 'MEM001'),
+    ('Bob', 'Brown', 'bobb@email.com', '4445556666', '2023-01-02', '2023-01-11', 'MEM002'),
+    ('Charlie', 'Green', 'charlieg@email.com', '7778889999', '2023-01-03', '2023-01-12', 'MEM003'),
+    ('Dana', 'White', 'danaw@email.com', '6667778888', '2023-01-04', '2023-01-13', 'MEM004'),
+    ('Evan', 'Black', 'evanb@email.com', '5556667777', '2023-01-05', '2023-01-14', 'MEM005');
+
+-- Starter data inserted into the Instructor table
+INSERT INTO Instructor
+    (FirstName, LastName, Email, PhoneNumber, InstructorNumber)
+VALUES
+    ('John', 'Doe', 'johndoe@email.com', '1234567890', 'INS001'),
+    ('Jane', 'Smith', 'janesmith@email.com', '0987654321', 'INS002'),
+    ('Alex', 'Turner', 'alexturner@email.com', '2345678901', 'INS003'),
+    ('Emily', 'Clark', 'emilyclark@email.com', '3456789012', 'INS004'),
+    ('David', 'Moore', 'davidmoore@email.com', '4567890123', 'INS005');
+
+-- Starter data inserted into the ClassType table
+INSERT INTO ClassType
+    (Name)
+VALUES
+    ('Yoga'),
+    ('Pilates'),
+    ('Zumba'),
+    ('Cardio'),
+    ('Strength Training'),
+    ('Dance'),
+    ('Meditation'),
+    ('Boxing'),
+    ('Cycling'),
+    ('HIIT');
+
+-- Starter data inserted into the Room table
+INSERT INTO Room
+    (RoomNumber, Capacity)
+VALUES
+    ('101', 25),
+    ('102', 20),
+    ('103', 30),
+    ('104', 15),
+    ('105', 10);
+
+-- Starter data inserted into the Class table
+INSERT INTO Class
+    (TypeID, InstructorID, RoomID, StartTime, Duration, ClassNumber)
+VALUES
+    (1, 1, 1, '2023-01-01 08:00:00', '01:00:00', 'CLS001'),
+    (2, 2, 2, '2023-01-02 09:00:00', '01:30:00', 'CLS002'),
+    (3, 3, 3, '2023-01-03 10:00:00', '02:00:00', 'CLS003'),
+    (4, 1, 4, '2023-01-04 11:00:00', '01:45:00', 'CLS004'),
+    (5, 2, 5, '2023-01-05 12:00:00', '01:30:00', 'CLS005');
+
+-- Starter data inserted into the Participants table
+INSERT INTO Participants
+    (ClassID, MemberID)
+VALUES
+    (1, 1),
+    (1, 2),
+    (2, 3),
+    (3, 4),
+    (3, 5);
+
 \c postgres
 \c gym
