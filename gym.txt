@@ -9,7 +9,7 @@ CREATE TABLE Member (
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     Email VARCHAR(40) NOT NULL UNIQUE,
-    PhoneNumber VARCHAR(10) NOT NULL,
+    PhoneNumber VAR
     LastPayment DATE,
     StartDate DATE NOT NULL,
     MemberNumber VARCHAR(15) NOT NULL UNIQUE,
@@ -80,7 +80,12 @@ VALUES
     ('Bob', 'Brown', 'bobb@email.com', '4445556666', '2023-01-02', '2023-01-11', 'MEM002'),
     ('Charlie', 'Green', 'charlieg@email.com', '7778889999', '2023-01-03', '2023-01-12', 'MEM003'),
     ('Dana', 'White', 'danaw@email.com', '6667778888', '2023-01-04', '2023-01-13', 'MEM004'),
-    ('Evan', 'Black', 'evanb@email.com', '5556667777', '2023-01-05', '2023-01-14', 'MEM005');
+    ('Evan', 'Black', 'evab@email.com', '5556667777', '2023-01-05', '2023-01-14', 'MEM005'),
+    ('Fiona', 'Grey', 'fionagrey@email.com', '8889990000', '2023-01-06', '2023-01-15', 'MEM006'),
+    ('George', 'Hall', 'georgehall@email.com', '7778889991', '2023-01-07', '2023-01-16', 'MEM007'),
+    ('Hannah', 'East', 'hannaaheast@email.com', '6667778882', '2023-01-08', '2023-01-17', 'MEM008'),
+    ('Ian', 'West', 'ianwest@email.com', '5556667773', '2023-01-09', '2023-01-18', 'MEM009'),
+    ('Jenna', 'South', 'jennasouth@email.com', '4445556664', '2023-01-10', '2023-01-19', 'MEM010');
 
 -- Starter data inserted into the Instructor table
 INSERT INTO Instructor
@@ -90,7 +95,12 @@ VALUES
     ('Jane', 'Smith', 'janesmith@email.com', '0987654321', 'INS002'),
     ('Alex', 'Turner', 'alexturner@email.com', '2345678901', 'INS003'),
     ('Emily', 'Clark', 'emilyclark@email.com', '3456789012', 'INS004'),
-    ('David', 'Moore', 'davidmoore@email.com', '4567890123', 'INS005');
+    ('David', 'Moore', 'davidmoore@email.com', '4567890123', 'INS005'),
+    ('Liam', 'Gallagher', 'liamg@email.com', '5566778899', 'INS006'),
+    ('Noel', 'Gallagher', 'noelg@email.com', '1122334455', 'INS007'),
+    ('Ian', 'Brown', 'ianb@email.com', '2233445566', 'INS008'),
+    ('Mani', 'Mounfield', 'manim@email.com', '3344556677', 'INS009'),
+    ('Reni', 'Wren', 'reniw@email.com', '4455667788', 'INS010');
 
 -- Starter data inserted into the ClassType table
 INSERT INTO ClassType
@@ -115,7 +125,12 @@ VALUES
     ('102', 20),
     ('103', 30),
     ('104', 15),
-    ('105', 10);
+    ('105', 10),
+    ('106', 12),
+    ('107', 8),
+    ('108', 20),
+    ('109', 16),
+    ('110', 18);
 
 -- Starter data inserted into the Class table
 INSERT INTO Class
@@ -125,7 +140,12 @@ VALUES
     (2, 2, 2, '2023-01-02 09:00:00', '01:30:00', 'CLS002'),
     (3, 3, 3, '2023-01-03 10:00:00', '02:00:00', 'CLS003'),
     (4, 1, 4, '2023-01-04 11:00:00', '01:45:00', 'CLS004'),
-    (5, 2, 5, '2023-01-05 12:00:00', '01:30:00', 'CLS005');
+    (5, 2, 5, '2023-01-05 12:00:00', '01:30:00', 'CLS005'),
+    (6, 3, 2, '2023-01-06 09:00:00', '02:00:00', 'CLS006'),
+    (7, 4, 3, '2023-01-07 10:00:00', '01:45:00', 'CLS007'),
+    (8, 5, 4, '2023-01-08 11:00:00', '01:30:00', 'CLS008'),
+    (9, 1, 5, '2023-01-09 12:00:00', '02:15:00', 'CLS009'),
+    (10, 2, 1, '2023-01-10 13:00:00', '01:00:00', 'CLS010');
 
 -- Starter data inserted into the Participants table
 INSERT INTO Participants
@@ -135,7 +155,12 @@ VALUES
     (1, 2),
     (2, 3),
     (3, 4),
-    (3, 5);
+    (3, 5),
+    (4, 1),
+    (4, 2),
+    (5, 3),
+    (5, 4),
+    (1, 5);
 
 \c postgres
 \c gym
