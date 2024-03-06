@@ -494,10 +494,7 @@ public class GymEnrollmentSystem
     public static boolean checkGymMembership(String memberNumber)
     {
         try {
-            PreparedStatement query = conn.prepareStatement("""
-                
-                """
-            );
+            PreparedStatement query = conn.prepareStatement("");
             ResultSet result = query.executeQuery();
         } catch(SQLException e) {
             return false;
@@ -505,14 +502,19 @@ public class GymEnrollmentSystem
         return true;
     }
     /** #28
-     * @Author Adam Chhor
-     * @return Formatted String Table of
+     * @Author Ian McNeal
+     * @return Formatted String of instructor information of a given class.
      */
     public static String getInstructorForClass(String classNumber) throws SQLException {
         PreparedStatement query = conn.prepareStatement("""
-                
+            SELECT Instructor.firstname AS instructor_firstname, Instructor.lastname AS instructor_lastname, 
+                Instructor.email, Instructor.phonenumber
+            FROM Class
+                JOIN Instructor ON (Class.instructorid = Instructor.id)
+            WHERE Class.classnumber = ?;
                 """
         );
+        query.setString(1, classNumber);
         ResultSet result = query.executeQuery();
         return Util.parseDataBase(result);
     }
@@ -536,4 +538,137 @@ public class GymEnrollmentSystem
         return Util.parseDataBase(result);
     }
 
+    /** #30
+     * @Author Ian McNeal
+     * @return Formatted String Table of all classes member is enrolled in.
+     */
+    public static String getGymMemberClasses(String memberNumber) throws SQLException {
+        PreparedStatement query = conn.prepareStatement("""
+            SELECT Instructor.firstname AS instructor_firstname, Instructor.lastname AS instructor_lastname, 
+                Room.roomnumber AS room_number, ClassType.name AS class_type, 
+                Class.starttime AS start_time, Class.duration
+            FROM Member
+                JOIN Participants ON (Member.id = Participants.memberid)
+                JOIN Class ON (Participants.classid = Class.id)
+                JOIN Instructor ON (Class.instructorid = Instructor.id)
+                JOIN ClassType ON (Class.typeid = ClassType.id)
+                JOIN Room ON (Class.roomid = Room.id)
+            WHERE Member.membernumber = ?;
+                """
+        );
+        query.setString(1, memberNumber);
+        ResultSet result = query.executeQuery();
+        return Util.parseDataBase(result);
+    }
+
+    /** #30b
+     * @Author Ian McNeal
+     * @return Formatted String Table of all classes member is enrolled in on a given day.
+     */
+    public static String getGymMemberClasses(String memberNumber, String date) throws SQLException {
+        PreparedStatement query = conn.prepareStatement("""
+            SELECT Instructor.firstname AS instructor_firstname, Instructor.lastname AS instructor_lastname, 
+                Room.roomnumber AS room_number, ClassType.name AS class_type, 
+                Class.starttime AS start_time, Class.duration
+            FROM Member
+                JOIN Participants ON (Member.id = Participants.memberid)
+                JOIN Class ON (Participants.classid = Class.id)
+                JOIN Instructor ON (Class.instructorid = Instructor.id)
+                JOIN ClassType ON (Class.typeid = ClassType.id)
+                JOIN Room ON (Class.roomid = Room.id)
+            WHERE Member.membernumber = ? AND Class.starttime::date = ?::date
+            ORDER BY Class.starttime;
+                """
+        );
+        query.setString(1, memberNumber);
+        query.setString(2, date);
+        ResultSet result = query.executeQuery();
+        return Util.parseDataBase(result);
+    }
+
+    /** #31
+     * @Author Ian McNeal
+     * @return Formatted String Table of all classes an instructor leads.
+     */
+    public static String getGymInstructorClasses(String instructorNumber) throws SQLException {
+        PreparedStatement query = conn.prepareStatement("""
+            SELECT Room.roomnumber AS room_number, ClassType.name AS class_type, 
+                Class.starttime AS start_time, Class.duration
+            FROM Instructor
+                JOIN Class ON (Instructor.id = Class.instructorid)
+                JOIN ClassType ON (Class.typeid = ClassType.id)
+                JOIN Room ON (Class.roomid = Room.id)
+            WHERE Instructor.instructornumber = ?
+            ORDER BY Class.starttime;
+                """
+        );
+        query.setString(1, instructorNumber);
+        ResultSet result = query.executeQuery();
+        return Util.parseDataBase(result);
+    }
+
+    /** #31b
+     * @Author Ian McNeal
+     * @return Formatted String Table of all classes an instructor leads on a given day.
+     */
+    public static String getGymInstructorClasses(String instructorNumber, String date) throws SQLException {
+        PreparedStatement query = conn.prepareStatement("""
+            SELECT Room.roomnumber AS room_number, ClassType.name AS class_type, 
+                Class.starttime AS start_time, Class.duration
+            FROM Instructor
+                JOIN Class ON (Instructor.id = Class.instructorid)
+                JOIN ClassType ON (Class.typeid = ClassType.id)
+                JOIN Room ON (Class.roomid = Room.id)
+            WHERE Instructor.instructornumber = ? AND Class.starttime::date = ?::date
+            ORDER BY Class.starttime;
+                """
+        );
+        query.setString(1, instructorNumber);
+        query.setString(2, date);
+        ResultSet result = query.executeQuery();
+        return Util.parseDataBase(result);
+    }
+
+    /** #32
+     * @Author Ian McNeal
+     * @return Formatted String Table of all classes of a given class type.
+     */
+    public static String getGymClassByClassType(String classType) throws SQLException {
+        PreparedStatement query = conn.prepareStatement("""
+            SELECT Instructor.firstname AS instructor_firstname, Instructor.lastname AS instructor_lastname, 
+                Room.roomnumber AS room_number, Class.starttime AS start_time, Class.duration
+            FROM Class
+                JOIN Instructor ON (Class.instructorid = Instructor.id)
+                JOIN Room ON (Class.roomid = Room.id)
+                JOIN ClassType ON (Class.typeid = ClassType.id)
+            WHERE ClassType.name = ?
+            ORDER BY Class.starttime;
+                """
+        );
+        query.setString(1, classType);
+        ResultSet result = query.executeQuery();
+        return Util.parseDataBase(result);
+    }
+
+    /** #32b
+     * @Author Ian McNeal
+     * @return Formatted String Table of all classes of a given class type on a given day.
+     */
+    public static String getGymClassByClassType(String classType, String date) throws SQLException {
+        PreparedStatement query = conn.prepareStatement("""
+            SELECT Instructor.firstname AS instructor_firstname, Instructor.lastname AS instructor_lastname, 
+                Room.roomnumber AS room_number, Class.starttime AS start_time, Class.duration
+            FROM Class
+                JOIN Instructor ON (Class.instructorid = Instructor.id)
+                JOIN Room ON (Class.roomid = Room.id)
+                JOIN ClassType ON (Class.typeid = ClassType.id)
+            WHERE ClassType.name = ? AND Class.starttime::date = ?::date
+            ORDER BY Class.starttime;
+                """
+        );
+        query.setString(1, classType);
+        query.setString(2, date);
+        ResultSet result = query.executeQuery();
+        return Util.parseDataBase(result);
+    }
 }
