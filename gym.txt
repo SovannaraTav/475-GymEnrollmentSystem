@@ -9,7 +9,7 @@ CREATE TABLE Member (
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     Email VARCHAR(40) NOT NULL UNIQUE,
-    PhoneNumber VARCHAR(10), NOT NULL
+    PhoneNumber VARCHAR(10) NOT NULL,
     LastPayment DATE,
     StartDate DATE NOT NULL,
     MemberNumber VARCHAR(15) NOT NULL UNIQUE,
