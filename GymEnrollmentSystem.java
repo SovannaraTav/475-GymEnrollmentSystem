@@ -199,186 +199,332 @@ public class GymEnrollmentSystem
     }
     /** #12
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if adding a new instructor to the Instructor table was
+     * successful and displays the number of rows inserted. Otherwise, returns false
      */
-    public static boolean addInstructor(String firstName, String lastName, String email, String phoneNumber, String instructorNumber)
+    public static boolean addInstructor(
+            String firstName, String lastName, String email, String phoneNumber,
+            String instructorNumber)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                INSERT INTO Instructor 
+                    (firstName, lastName, email, phoneNumber, instructorNumber)
+                VALUES (?, ?, ?, ?, ?)
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setString(1, firstName);
+            query.setString(2, lastName);
+            query.setString(3, email);
+            query.setString(4, phoneNumber);
+            query.setString(5, instructorNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsInserted = query.executeUpdate();
+            System.out.println("Rows inserted: " + rowsInserted);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #13
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if updating an instructor's email in the Instructor
+     * table was successful and displays the number of rows updated. Otherwise,
+     * returns false
      */
-    public static boolean updateInstructorEmail(String instructorNumber, String newValue)
+    public static boolean updateInstructorEmail(
+            String instructorNumber, String newValue)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                UPDATE Instructor
+                SET email = ?
+                WHERE instructorNumber = ?
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setString(1, newValue);
+            query.setString(2, instructorNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsUpdated = query.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #14
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if updating an instructor's phone number in the
+     * Instructor table was successful and displays the number of rows updated.
+     * Otherwise, returns false
      */
-    public static boolean updateInstructorphoneNumber(String instructorNumber, String newValue)
+    public static boolean updateInstructorPhoneNumber(
+            String instructorNumber, String newValue)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                UPDATE Instructor
+                SET phoneNumber = ?
+                WHERE instructorNumber = ?
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setString(1, newValue);
+            query.setString(2, instructorNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsUpdated = query.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #15
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if removing an instructor from the Instructor table was
+     * successful and displays the number of rows deleted. Otherwise, returns false
      */
-    public static boolean removeInstrutor(String instructorNumber)
+    public static boolean removeInstructor(String instructorNumber)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                DELETE FROM Instructor
+                WHERE instructorNumber = ?
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setString(1, instructorNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsDeleted = query.executeUpdate();
+            System.out.println("Rows deleted: " + rowsDeleted);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #16
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if adding a new class to the Class table was successful
+     * and displays the number of rows updated. Otherwise, returns false
      */
-    public static boolean addClass(String classTypeName, String instructorNumber, String roomNumber, String startTime, String duration, String classNumber)
+    public static boolean addClass(
+            String classTypeName, String instructorNumber, String roomNumber,
+            String startTime, String duration, String classNumber)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                INSERT INTO Class 
+                    (typeId, instructorId, roomId, startTime, duration, classNumber)
+                VALUES
+                    (
+                    (SELECT id FROM ClassType WHERE name = ?),
+                    (SELECT id FROM Instructor WHERE instructorNumber = ?),
+                    (SELECT id FROM Room WHERE roomNumber = ?),
+                    ?, ?, ?
+                    )
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setString(1, classTypeName);
+            query.setString(2, instructorNumber);
+            query.setString(3, roomNumber);
+            query.setTimestamp(4, Timestamp.valueOf(startTime));
+            query.setString(5, duration);
+            query.setString(6, classNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsInserted = query.executeUpdate();
+            System.out.println("Rows inserted: " + rowsInserted);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #17
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if updating a class' start time in the Class table was
+     * successful and displays the number of rows updated. Otherwise, returns false
      */
-    public static boolean updateClassStartTIme(String classNumber, String newValue)
+    public static boolean updateClassStartTime(String classNumber, String newValue)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                UPDATE Class
+                SET startTime = ?
+                WHERE classNumber = ?
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setTimestamp(1, Timestamp.valueOf(newValue));
+            query.setString(2, classNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsUpdated = query.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #18
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if updating a class' duration in the Class table was
+     * successful and displays the number of rows updated. Otherwise, returns false
      */
     public static boolean updateClassDuration(String classNumber, String newValue)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                UPDATE Class
+                SET duration = ?
+                WHERE classNumber = ?
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setString(1, newValue);
+            query.setString(2, classNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsUpdated = query.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #19
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if updating a class' room number in the Class table was
+     * successful and displays the number of rows updated. Otherwise, returns false
      */
-    public static boolean updateClassRoomNumber(String classNumber, String newValue)
+    public static boolean updateClassRoomNumber(String classNumber, String roomNumber)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                UPDATE Class
+                SET roomId = (SELECT id FROM Room WHERE roomNumber = ?)
+                WHERE classNumber = ?
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setString(1, roomNumber);
+            query.setString(2, classNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsUpdated = query.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #20
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if removing a class from the Class table was successful
+     * and displays the number of rows deleted. Otherwise, returns false
      */
     public static boolean removeClass(String classNumber)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                DELETE FROM Class
+                WHERE classNumber = ?
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setString(1, classNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsDeleted = query.executeUpdate();
+            System.out.println("Rows deleted: " + rowsDeleted);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #21
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if adding a new room to the Room table was successful
+     * and displays the number of rows inserted. Otherwise, returns false
      */
     public static boolean addRoom(String roomNumber, int capacity)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                INSERT INTO Room (roomNumber, capacity)
+                VALUES (?, ?)
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setString(1, roomNumber);
+            query.setInt(2, capacity);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsInserted = query.executeUpdate();
+            System.out.println("Rows inserted: " + rowsInserted);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #22
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if updating the room number of a room in the Room table
+     * was successful and displays the number of rows updated. Otherwise, returns
+     * false
      */
-    public static boolean updateRoomNumber(String roomNumber, String newValue) // Ask professor on this???
+    public static boolean updateRoomNumber(String roomNumber, String newValue)
     {
         try {
             PreparedStatement query = conn.prepareStatement("""
-                
+                UPDATE Room
+                SET roomNumber = ?
+                WHERE roomNumber = ?
                 """
             );
-            ResultSet result = query.executeQuery();
+            query.setString(1, newValue);
+            query.setString(2, roomNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsUpdated = query.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
+            query.close();
         } catch(SQLException e) {
             return false;
         }
@@ -386,82 +532,141 @@ public class GymEnrollmentSystem
     }
     /** #23
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if updating a room's capacity in the Room table was
+     * successful and displays the number of rows updated. Otherwise, returns false
      */
-    public static boolean updateRoomCapacity(String roomNumber, int newValue) // Ask professor on this)
+    public static boolean updateRoomCapacity(String roomNumber, int newValue)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                UPDATE Room
+                SET capacity = ?
+                WHERE roomNumber = ?
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setInt(1, newValue);
+            query.setString(2, roomNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsUpdated = query.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #24
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if removing a room from the Room table was successful
+     * and displays the number of rows deleted. Otherwise, returns false
      */
     public static boolean removeRoom(String roomNumber)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                DELETE FROM Room
+                WHERE roomNumber = ?
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setString(1, roomNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsDeleted = query.executeUpdate();
+            System.out.println("Rows deleted: " + rowsDeleted);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #25
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if adding a new class type to the ClassType table was
+     * successful and displays the number of rows inserted. Otherwise, returns false
      */
     public static boolean addClassType(String name)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                INSERT INTO ClassType (name)
+                VALUES (?)
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setString(1, name);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsInserted = query.executeUpdate();
+            System.out.println("Rows inserted: " + rowsInserted);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #26
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if removing a class type from the ClassType table was
+     * successful and displays the number of rows deleted. Otherwise, returns false
      */
     public static boolean removeClassType(String name)
     {
-        try {
+        try
+        {
             PreparedStatement query = conn.prepareStatement("""
-                
+                DELETE FROM ClassType
+                WHERE name = ?
                 """
             );
-            ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            query.setString(1, name);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsDeleted = query.executeUpdate();
+            System.out.println("Rows deleted: " + rowsDeleted);
+            query.close();
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
     }
     /** #27
      * @Author Sovannara Tav
-     * @return returns true if
+     * @return returns true if the membership of a gym member from the Member table
+     * is active. Otherwise, returns false
      */
     public static boolean checkGymMembership(String memberNumber)
     {
-        try {
-            PreparedStatement query = conn.prepareStatement("");
+        try
+        {
+            PreparedStatement query = conn.prepareStatement("""
+                    SELECT lastPayment
+                    FROM Member
+                    WHERE memberNumber = ?
+                    """);
+            query.setDate(1, Date.valueOf(memberNumber));
+
+            /*
+            If lastPayment is an empty string, thus indicating that it is NULL, then
+            the membership of a gym member is not active
+             */
             ResultSet result = query.executeQuery();
-        } catch(SQLException e) {
+            if (result.getString(1).isEmpty()) {
+                return false;
+            }
+        }
+        catch(SQLException e)
+        {
             return false;
         }
         return true;
