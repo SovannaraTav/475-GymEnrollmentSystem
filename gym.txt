@@ -11,7 +11,7 @@ CREATE TABLE Member (
     Email VARCHAR(40) NOT NULL UNIQUE,
     PhoneNumber VARCHAR(10) NOT NULL,
     LastPayment DATE,
-    StartDate DATE NOT NULL,
+    StartDate DATE NOT NULL DEFAULT CURRENT_DATE,
     MemberNumber VARCHAR(15) NOT NULL UNIQUE,
 
     PRIMARY KEY (ID)
