@@ -3,7 +3,12 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+/**
+ * @Author Adam Chhor
+ * helper methods
+ */
 public class Util {
+
   public static String parseDataBase(ResultSet rs) throws SQLException {
     StringBuilder formattedStringBuilder = new StringBuilder();
     ResultSetMetaData metaData = rs.getMetaData();

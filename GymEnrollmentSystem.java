@@ -15,45 +15,10 @@ import java.util.Properties;
 
 public class GymEnrollmentSystem
 {
-    static Connection conn;
+    public static Connection conn;
     public static void main(String[] args)
     {
-
-        // Retrieves the PostgreSQL database properties
-        Properties properties = new Properties();
-        String fileName = "DatabaseProperties.properties";
-        try
-        {
-            FileInputStream inputFile = new FileInputStream(fileName);
-            properties.load(inputFile);
-            inputFile.close();
-        }
-        catch (IOException e)
-        {
-            System.err.println("Input file error: " + e.getMessage());
-            return;
-        }
-        String url = properties.getProperty("database.url");
-        String user = properties.getProperty("database.user");
-        String password = properties.getProperty("database.password");
-
-        // Establishes the connection between JDBC and PostgreSQL database
-        try
-        {
-            conn =
-                    DriverManager.getConnection(url, user, password);
-            System.out.println("Database connection established");
-            //PRINT OUT TEST QUERIES HERE:
-//           System.out.println(getMembersInClass("CLS001", 4));
-
-
-            conn.close();
-            System.out.println("Database connection closed");
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Database connection error: " + e.getMessage());
-        }
+        Terminal.runTerminal();
     }
 
     /** #1
@@ -561,7 +526,7 @@ public class GymEnrollmentSystem
         return Util.parseDataBase(result);
     }
 
-    /** #30b
+    /** #31
      * @Author Ian McNeal
      * @return Formatted String Table of all classes member is enrolled in on a given day.
      */
@@ -586,7 +551,7 @@ public class GymEnrollmentSystem
         return Util.parseDataBase(result);
     }
 
-    /** #31
+    /** #32
      * @Author Ian McNeal
      * @return Formatted String Table of all classes an instructor leads.
      */
@@ -607,7 +572,7 @@ public class GymEnrollmentSystem
         return Util.parseDataBase(result);
     }
 
-    /** #31b
+    /** #33
      * @Author Ian McNeal
      * @return Formatted String Table of all classes an instructor leads on a given day.
      */
@@ -629,7 +594,7 @@ public class GymEnrollmentSystem
         return Util.parseDataBase(result);
     }
 
-    /** #32
+    /** #34
      * @Author Ian McNeal
      * @return Formatted String Table of all classes of a given class type.
      */
@@ -650,7 +615,7 @@ public class GymEnrollmentSystem
         return Util.parseDataBase(result);
     }
 
-    /** #32b
+    /** #35
      * @Author Ian McNeal
      * @return Formatted String Table of all classes of a given class type on a given day.
      */
