@@ -23,41 +23,9 @@ public class GymEnrollmentSystem
 
     /** #1
      * @Author Sandesh Rai
-     * @return returns true if updating a class' instructor initially set to NULL
-     * was successful and displays the number of rows updated. Otherwise, returns
-     * false
-     */
-    public static boolean addInstructorToClass(
-            String classNumber, String instructorNumber)
-    {
-        try
-        {
-            PreparedStatement query = conn.prepareStatement("""
-                UPDATE Class
-                SET instructorID = 
-                    (SELECT id FROM Instructor WHERE instructorNumber = ?)
-                WHERE instructorID IS NULL AND classNumber = ?
-                """
-            );
-            query.setString(1, instructorNumber);
-            query.setString(2, classNumber);
-
-            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
-            int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
-            query.close();
-        }
-        catch(SQLException e)
-        {
-            return false;
-        }
-        return true;
-    }
-    /** #2
-     * @Author Sandesh Rai
      * @return returns true if updating a class' instructor initially not set to
      * NULL was successful and displays the number of rows updated. Otherwise,
-     * return false
+     * return false.
      */
     public static boolean updateInstructorInClass(
             String classNumber, String newInstructorNumber)
@@ -85,10 +53,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #3
+
+    /** #2
      * @Author Sandesh Rai
      * @return returns true if updating a class' instructor to NULL was successful
-     * and displays the number of rows updated. Otherwise, return false
+     * and displays the number of rows updated. Otherwise, return false.
      */
     public static boolean removeInstructorFromClass(String classNumber)
     {
@@ -113,11 +82,12 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #4
+
+    /** #3
      * @Author Sandesh Rai
      * @return returns true if adding a new participant to the Participants table
      * was successful and displays the number of rows inserted. Otherwise, returns
-     * false
+     * false.
      */
     public static boolean addMemberToClass(String classNumber, String memberNumber)
     {
@@ -146,11 +116,12 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #5
+
+    /** #4
      * @Author Sandesh Rai
      * @return returns true if updating a member's class enrollment in the
      * Participants table was successful and displays the number of rows updated.
-     * Otherwise, returns false
+     * Otherwise, returns false.
      */
     public static boolean updateMemberClassEnrollment(
             String oldClassNumber, String newClassNumber, String memberNumber)
@@ -179,11 +150,12 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #6
+
+    /** #5
      * @Author Sandesh Rai
      * @return returns true if removing a participant from the Participants table
      * was successful and displays the number of rows deleted. Otherwise, returns
-     * false
+     * false.
      */
     public static boolean removeMemberFromClass(
             String classNumber, String memberNumber)
@@ -210,10 +182,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #7
+
+    /** #6
      * @Author Sandesh Rai
-     * @return returns true if adding a new member to the Member table was
-     * successful and displays the number of rows inserted. Otherwise, returns false
+     * @return returns true if adding a new member to the Member table was successful
+     * and displays the number of rows inserted. Otherwise, returns false.
      */
     public static boolean addMember(
             String firstName, String lastName, String email,
@@ -243,10 +216,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #8
+
+    /** #7
      * @Author Sandesh Rai
      * @return returns true if updating a member's email was successful and displays
-     * the number of rows updated. Otherwise, returns false
+     * the number of rows updated. Otherwise, returns false.
      */
     public static boolean updateMemberEmail(String memberNumber, String newValue)
     {
@@ -272,10 +246,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #9
+
+    /** #8
      * @Author Sandesh Rai
      * @return returns true if updating a member's phone number was successful and
-     * displays the number of rows updated. Otherwise, returns false
+     * displays the number of rows updated. Otherwise, returns false.
      */
     public static boolean updateMemberPhoneNumber(
             String memberNumber, String newValue)
@@ -302,10 +277,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #10
+
+    /** #9
      * @Author Sandesh Rai
      * @return returns true if updating a member's last payment was successful and
-     * displays the number of rows updated. Otherwise, returns false
+     * displays the number of rows updated. Otherwise, returns false.
      */
     public static boolean updateMemberLastPayment(
             String memberNumber, String newValue)
@@ -332,10 +308,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #11
+
+    /** #10
      * @Author Sandesh Rai
-     * @return returns true if removing a member from the Member table was
-     * successful and displays the number of rows deleted. Otherwise, returns false
+     * @return returns true if removing a member from the Member table was successful
+     * and displays the number of rows deleted. Otherwise, returns false.
      */
     public static boolean removeMember(String memberNumber)
     {
@@ -359,10 +336,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #12
+
+    /** #11
      * @Author Sovannara Tav
      * @return returns true if adding a new instructor to the Instructor table was
-     * successful and displays the number of rows inserted. Otherwise, returns false
+     * successful and displays the number of rows inserted. Otherwise, returns false.
      */
     public static boolean addInstructor(
             String firstName, String lastName, String email, String phoneNumber,
@@ -393,11 +371,12 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #13
+
+    /** #12
      * @Author Sovannara Tav
      * @return returns true if updating an instructor's email in the Instructor
      * table was successful and displays the number of rows updated. Otherwise,
-     * returns false
+     * returns false.
      */
     public static boolean updateInstructorEmail(
             String instructorNumber, String newValue)
@@ -424,11 +403,12 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #14
+
+    /** #13
      * @Author Sovannara Tav
      * @return returns true if updating an instructor's phone number in the
      * Instructor table was successful and displays the number of rows updated.
-     * Otherwise, returns false
+     * Otherwise, returns false.
      */
     public static boolean updateInstructorPhoneNumber(
             String instructorNumber, String newValue)
@@ -455,10 +435,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #15
+
+    /** #14
      * @Author Sovannara Tav
      * @return returns true if removing an instructor from the Instructor table was
-     * successful and displays the number of rows deleted. Otherwise, returns false
+     * successful and displays the number of rows deleted. Otherwise, returns false.
      */
     public static boolean removeInstructor(String instructorNumber)
     {
@@ -482,10 +463,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #16
+
+    /** #15
      * @Author Sovannara Tav
      * @return returns true if adding a new class to the Class table was successful
-     * and displays the number of rows updated. Otherwise, returns false
+     * and displays the number of rows updated. Otherwise, returns false.
      */
     public static boolean addClass(
             String classTypeName, String instructorNumber, String roomNumber,
@@ -523,10 +505,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #17
+
+    /** #16
      * @Author Sovannara Tav
      * @return returns true if updating a class' start time in the Class table was
-     * successful and displays the number of rows updated. Otherwise, returns false
+     * successful and displays the number of rows updated. Otherwise, returns false.
      */
     public static boolean updateClassStartTime(String classNumber, String newValue)
     {
@@ -552,10 +535,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #18
+
+    /** #17
      * @Author Sovannara Tav
      * @return returns true if updating a class' duration in the Class table was
-     * successful and displays the number of rows updated. Otherwise, returns false
+     * successful and displays the number of rows updated. Otherwise, returns false.
      */
     public static boolean updateClassDuration(String classNumber, String newValue)
     {
@@ -581,10 +565,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #19
+
+    /** #18
      * @Author Sovannara Tav
      * @return returns true if updating a class' room number in the Class table was
-     * successful and displays the number of rows updated. Otherwise, returns false
+     * successful and displays the number of rows updated. Otherwise, returns false.
      */
     public static boolean updateClassRoomNumber(String classNumber, String roomNumber)
     {
@@ -610,10 +595,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #20
+
+    /** #19
      * @Author Sovannara Tav
      * @return returns true if removing a class from the Class table was successful
-     * and displays the number of rows deleted. Otherwise, returns false
+     * and displays the number of rows deleted. Otherwise, returns false.
      */
     public static boolean removeClass(String classNumber)
     {
@@ -637,10 +623,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #21
+
+    /** #20
      * @Author Sovannara Tav
      * @return returns true if adding a new room to the Room table was successful
-     * and displays the number of rows inserted. Otherwise, returns false
+     * and displays the number of rows inserted. Otherwise, returns false.
      */
     public static boolean addRoom(String roomNumber, int capacity)
     {
@@ -665,11 +652,12 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #22
+
+    /** #21
      * @Author Sovannara Tav
      * @return returns true if updating the room number of a room in the Room table
      * was successful and displays the number of rows updated. Otherwise, returns
-     * false
+     * false.
      */
     public static boolean updateRoomNumber(String roomNumber, String newValue)
     {
@@ -692,10 +680,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #23
+
+    /** #22
      * @Author Sovannara Tav
      * @return returns true if updating a room's capacity in the Room table was
-     * successful and displays the number of rows updated. Otherwise, returns false
+     * successful and displays the number of rows updated. Otherwise, returns false.
      */
     public static boolean updateRoomCapacity(String roomNumber, int newValue)
     {
@@ -721,10 +710,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #24
+
+    /** #23
      * @Author Sovannara Tav
      * @return returns true if removing a room from the Room table was successful
-     * and displays the number of rows deleted. Otherwise, returns false
+     * and displays the number of rows deleted. Otherwise, returns false.
      */
     public static boolean removeRoom(String roomNumber)
     {
@@ -748,10 +738,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #25
+
+    /** #24
      * @Author Sovannara Tav
      * @return returns true if adding a new class type to the ClassType table was
-     * successful and displays the number of rows inserted. Otherwise, returns false
+     * successful and displays the number of rows inserted. Otherwise, returns false.
      */
     public static boolean addClassType(String name)
     {
@@ -775,10 +766,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #26
+
+    /** #25
      * @Author Sovannara Tav
      * @return returns true if removing a class type from the ClassType table was
-     * successful and displays the number of rows deleted. Otherwise, returns false
+     * successful and displays the number of rows deleted. Otherwise, returns false.
      */
     public static boolean removeClassType(String name)
     {
@@ -802,10 +794,11 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #27
+
+    /** #26
      * @Author Sovannara Tav
      * @return returns true if the membership of a gym member from the Member table
-     * is active. Otherwise, returns false
+     * is active. Otherwise, returns false.
      */
     public static boolean checkGymMembership(String memberNumber)
     {
@@ -815,7 +808,8 @@ public class GymEnrollmentSystem
                     SELECT lastPayment
                     FROM Member
                     WHERE memberNumber = ?
-                    """);
+                    """
+            );
             query.setDate(1, Date.valueOf(memberNumber));
 
             /*
@@ -833,28 +827,38 @@ public class GymEnrollmentSystem
         }
         return true;
     }
-    /** #28
+
+    /** #27
      * @Author Ian McNeal
      * @return Formatted String of instructor information of a given class.
      */
-    public static String getInstructorForClass(String classNumber) throws SQLException {
+    public static String getInstructorForClass(String classNumber) throws SQLException
+    {
         PreparedStatement query = conn.prepareStatement("""
-            SELECT Instructor.firstname AS instructor_firstname, Instructor.lastname AS instructor_lastname, 
-                Instructor.email, Instructor.phonenumber
+            SELECT Instructor.firstname AS instructor_firstname, 
+                Instructor.lastname AS instructor_lastname, 
+                Instructor.email, Instructor.phoneNumber
             FROM Class
-                JOIN Instructor ON (Class.instructorid = Instructor.id)
-            WHERE Class.classnumber = ?;
-                """
+                JOIN Instructor ON (Class.instructorId = Instructor.id)
+            WHERE Class.classNumber = ?;
+            """
         );
         query.setString(1, classNumber);
         ResultSet result = query.executeQuery();
-        return Util.parseDataBase(result);
+        String output = Util.parseDataBase(result);
+        result.close();
+        query.close();
+        return output;
     }
-    /** #29
+
+    /** #28
      * @Author Adam Chhor
-     * @return Formatted String Table of members' information of "classNumber" and limits column by "numberOfRowsToReturn"
+     * @return Formatted String Table of members' information of "classNumber" and
+     * limits column by "numberOfRowsToReturn"
      */
-    public static String getMembersInClass(String classNumber, int numberOfRowsToReturn) throws SQLException {
+    public static String getMembersInClass(
+            String classNumber, int numberOfRowsToReturn) throws SQLException
+    {
         PreparedStatement query = conn.prepareStatement("""
                 SELECT firstName, lastName, email, phoneNumber, startDate, memberNumber
                 FROM Member M
@@ -867,140 +871,180 @@ public class GymEnrollmentSystem
         query.setString(1, classNumber);
         query.setInt(2, numberOfRowsToReturn);
         ResultSet result = query.executeQuery();
-        return Util.parseDataBase(result);
+        String output = Util.parseDataBase(result);
+        result.close();
+        query.close();
+        return output;
+    }
+
+    /** #29
+     * @Author Ian McNeal
+     * @return Formatted String Table of all classes member is enrolled in.
+     */
+    public static String getGymMemberClasses(String memberNumber) throws SQLException
+    {
+        PreparedStatement query = conn.prepareStatement("""
+            SELECT Instructor.firstname AS instructor_firstname, 
+                Instructor.lastName AS instructor_lastname, 
+                Room.roomNumber AS room_number, ClassType.name AS class_type, 
+                Class.startTime AS start_time, Class.duration
+            FROM Member
+                JOIN Participants ON (Member.id = Participants.memberId)
+                JOIN Class ON (Participants.classId = Class.id)
+                JOIN Instructor ON (Class.instructorId = Instructor.id)
+                JOIN ClassType ON (Class.typeId = ClassType.id)
+                JOIN Room ON (Class.roomId = Room.id)
+            WHERE Member.memberNumber = ?;
+            """
+        );
+        query.setString(1, memberNumber);
+        ResultSet result = query.executeQuery();
+        String output = Util.parseDataBase(result);
+        result.close();
+        query.close();
+        return output;
     }
 
     /** #30
      * @Author Ian McNeal
-     * @return Formatted String Table of all classes member is enrolled in.
+     * @return Formatted String Table of all classes member is enrolled in on a
+     * given day.
      */
-    public static String getGymMemberClasses(String memberNumber) throws SQLException {
+    public static String getGymMemberClasses(String memberNumber, String date)
+            throws SQLException
+    {
         PreparedStatement query = conn.prepareStatement("""
-            SELECT Instructor.firstname AS instructor_firstname, Instructor.lastname AS instructor_lastname, 
-                Room.roomnumber AS room_number, ClassType.name AS class_type, 
-                Class.starttime AS start_time, Class.duration
+            SELECT Instructor.firstName AS instructor_firstname, 
+                Instructor.lastName AS instructor_lastname, 
+                Room.roomNumber AS room_number, ClassType.name AS class_type, 
+                Class.startTime AS start_time, Class.duration
             FROM Member
-                JOIN Participants ON (Member.id = Participants.memberid)
-                JOIN Class ON (Participants.classid = Class.id)
-                JOIN Instructor ON (Class.instructorid = Instructor.id)
-                JOIN ClassType ON (Class.typeid = ClassType.id)
-                JOIN Room ON (Class.roomid = Room.id)
-            WHERE Member.membernumber = ?;
-                """
+                JOIN Participants ON (Member.id = Participants.memberId)
+                JOIN Class ON (Participants.classId = Class.id)
+                JOIN Instructor ON (Class.instructorId = Instructor.id)
+                JOIN ClassType ON (Class.typeId = ClassType.id)
+                JOIN Room ON (Class.roomId = Room.id)
+            WHERE Member.memberNumber = ? AND Class.startTime::date = ?::date
+            ORDER BY Class.startTime;
+            """
         );
         query.setString(1, memberNumber);
+        query.setString(2, date);
         ResultSet result = query.executeQuery();
-        return Util.parseDataBase(result);
+        String output = Util.parseDataBase(result);
+        result.close();
+        query.close();
+        return output;
     }
 
     /** #31
      * @Author Ian McNeal
-     * @return Formatted String Table of all classes member is enrolled in on a given day.
+     * @return Formatted String Table of all classes an instructor leads.
      */
-    public static String getGymMemberClasses(String memberNumber, String date) throws SQLException {
+    public static String getGymInstructorClasses(String instructorNumber)
+            throws SQLException
+    {
         PreparedStatement query = conn.prepareStatement("""
-            SELECT Instructor.firstname AS instructor_firstname, Instructor.lastname AS instructor_lastname, 
-                Room.roomnumber AS room_number, ClassType.name AS class_type, 
-                Class.starttime AS start_time, Class.duration
-            FROM Member
-                JOIN Participants ON (Member.id = Participants.memberid)
-                JOIN Class ON (Participants.classid = Class.id)
-                JOIN Instructor ON (Class.instructorid = Instructor.id)
-                JOIN ClassType ON (Class.typeid = ClassType.id)
-                JOIN Room ON (Class.roomid = Room.id)
-            WHERE Member.membernumber = ? AND Class.starttime::date = ?::date
-            ORDER BY Class.starttime;
-                """
+            SELECT Room.roomNumber AS room_number, ClassType.name AS class_type, 
+                Class.startTime AS start_time, Class.duration
+            FROM Instructor
+                JOIN Class ON (Instructor.id = Class.instructorId)
+                JOIN ClassType ON (Class.typeId = ClassType.id)
+                JOIN Room ON (Class.roomId = Room.id)
+            WHERE Instructor.instructorNumber = ?
+            ORDER BY Class.startTime;
+            """
         );
-        query.setString(1, memberNumber);
-        query.setString(2, date);
+        query.setString(1, instructorNumber);
         ResultSet result = query.executeQuery();
-        return Util.parseDataBase(result);
+        String output = Util.parseDataBase(result);
+        result.close();
+        query.close();
+        return output;
     }
 
     /** #32
      * @Author Ian McNeal
-     * @return Formatted String Table of all classes an instructor leads.
+     * @return Formatted String Table of all classes an instructor leads on a given
+     * day.
      */
-    public static String getGymInstructorClasses(String instructorNumber) throws SQLException {
+    public static String getGymInstructorClasses(String instructorNumber, String date)
+            throws SQLException
+    {
         PreparedStatement query = conn.prepareStatement("""
-            SELECT Room.roomnumber AS room_number, ClassType.name AS class_type, 
-                Class.starttime AS start_time, Class.duration
+            SELECT Room.roomNumber AS room_number, ClassType.name AS class_type, 
+                Class.startTime AS start_time, Class.duration
             FROM Instructor
-                JOIN Class ON (Instructor.id = Class.instructorid)
-                JOIN ClassType ON (Class.typeid = ClassType.id)
-                JOIN Room ON (Class.roomid = Room.id)
-            WHERE Instructor.instructornumber = ?
-            ORDER BY Class.starttime;
-                """
-        );
-        query.setString(1, instructorNumber);
-        ResultSet result = query.executeQuery();
-        return Util.parseDataBase(result);
-    }
-
-    /** #33
-     * @Author Ian McNeal
-     * @return Formatted String Table of all classes an instructor leads on a given day.
-     */
-    public static String getGymInstructorClasses(String instructorNumber, String date) throws SQLException {
-        PreparedStatement query = conn.prepareStatement("""
-            SELECT Room.roomnumber AS room_number, ClassType.name AS class_type, 
-                Class.starttime AS start_time, Class.duration
-            FROM Instructor
-                JOIN Class ON (Instructor.id = Class.instructorid)
-                JOIN ClassType ON (Class.typeid = ClassType.id)
-                JOIN Room ON (Class.roomid = Room.id)
-            WHERE Instructor.instructornumber = ? AND Class.starttime::date = ?::date
-            ORDER BY Class.starttime;
-                """
+                JOIN Class ON (Instructor.id = Class.instructorId)
+                JOIN ClassType ON (Class.typeId = ClassType.id)
+                JOIN Room ON (Class.roomId = Room.id)
+            WHERE Instructor.instructorNumber = ? AND Class.startTime::date = ?::date
+            ORDER BY Class.startTime;
+            """
         );
         query.setString(1, instructorNumber);
         query.setString(2, date);
         ResultSet result = query.executeQuery();
-        return Util.parseDataBase(result);
+        String output = Util.parseDataBase(result);
+        result.close();
+        query.close();
+        return output;
     }
 
-    /** #34
+    /** #33
      * @Author Ian McNeal
      * @return Formatted String Table of all classes of a given class type.
      */
-    public static String getGymClassByClassType(String classType) throws SQLException {
+    public static String getGymClassByClassType(String classType) throws SQLException
+    {
         PreparedStatement query = conn.prepareStatement("""
-            SELECT Instructor.firstname AS instructor_firstname, Instructor.lastname AS instructor_lastname, 
-                Room.roomnumber AS room_number, Class.starttime AS start_time, Class.duration
+            SELECT Instructor.firstname AS instructor_firstname, 
+                Instructor.lastname AS instructor_lastname, 
+                Room.roomnumber AS room_number, 
+                Class.starttime AS start_time, Class.duration
             FROM Class
                 JOIN Instructor ON (Class.instructorid = Instructor.id)
                 JOIN Room ON (Class.roomid = Room.id)
                 JOIN ClassType ON (Class.typeid = ClassType.id)
             WHERE ClassType.name = ?
             ORDER BY Class.starttime;
-                """
+            """
         );
         query.setString(1, classType);
         ResultSet result = query.executeQuery();
-        return Util.parseDataBase(result);
+        String output = Util.parseDataBase(result);
+        result.close();
+        query.close();
+        return output;
     }
 
-    /** #35
+    /** #34
      * @Author Ian McNeal
-     * @return Formatted String Table of all classes of a given class type on a given day.
+     * @return Formatted String Table of all classes of a given class type on a given
+     * day.
      */
-    public static String getGymClassByClassType(String classType, String date) throws SQLException {
+    public static String getGymClassByClassType(String classType, String date)
+            throws SQLException
+    {
         PreparedStatement query = conn.prepareStatement("""
-            SELECT Instructor.firstname AS instructor_firstname, Instructor.lastname AS instructor_lastname, 
-                Room.roomnumber AS room_number, Class.starttime AS start_time, Class.duration
+            SELECT Instructor.firstName AS instructor_firstname, 
+                Instructor.lastName AS instructor_lastname, 
+                Room.roomNumber AS room_number, 
+                Class.startTime AS start_time, Class.duration
             FROM Class
-                JOIN Instructor ON (Class.instructorid = Instructor.id)
-                JOIN Room ON (Class.roomid = Room.id)
-                JOIN ClassType ON (Class.typeid = ClassType.id)
-            WHERE ClassType.name = ? AND Class.starttime::date = ?::date
-            ORDER BY Class.starttime;
-                """
+                JOIN Instructor ON (Class.instructorId = Instructor.id)
+                JOIN Room ON (Class.roomId = Room.id)
+                JOIN ClassType ON (Class.typeId = ClassType.id)
+            WHERE ClassType.name = ? AND Class.startTime::date = ?::date
+            ORDER BY Class.startTime;
+            """
         );
         query.setString(1, classType);
         query.setString(2, date);
         ResultSet result = query.executeQuery();
-        return Util.parseDataBase(result);
+        String output = Util.parseDataBase(result);
+        result.close();
+        query.close();
+        return output;
     }
 }

@@ -85,7 +85,17 @@ VALUES
     ('George', 'Hall', 'georgehall@email.com', '7778889991', '2023-01-07', '2023-01-16', 'MEM007'),
     ('Hannah', 'East', 'hannaaheast@email.com', '6667778882', '2023-01-08', '2023-01-17', 'MEM008'),
     ('Ian', 'West', 'ianwest@email.com', '5556667773', '2023-01-09', '2023-01-18', 'MEM009'),
-    ('Jenna', 'South', 'jennasouth@email.com', '4445556664', '2023-01-10', '2023-01-19', 'MEM010');
+    ('Jenna', 'South', 'jennasouth@email.com', '4445556664', '2023-01-10', '2023-01-19', 'MEM010'),
+    ('Lara', 'Craft', 'laracraft@email.com', '1212121212', '2023-01-20', '2023-01-21', 'MEM011'),
+    ('Marco', 'Polo', 'marcopolo@email.com', '1313131313', '2023-01-21', '2023-01-22', 'MEM012'),
+    ('Nina', 'Simone', 'ninasimone@email.com', '1414141414', '2023-01-22', '2023-01-23', 'MEM013'),
+    ('Oscar', 'Wilde', 'oscarwilde@email.com', '1515151515', '2023-01-23', '2023-01-24', 'MEM014'),
+    ('Patty', 'Smith', 'pattysmith@email.com', '1616161616', '2023-01-24', '2023-01-25', 'MEM015'),
+    ('Quincy', 'Jones', 'quincyjones@email.com', '1717171717', '2023-01-25', '2023-01-26', 'MEM016'),
+    ('Rita', 'Lee', 'ritalee@email.com', '1818181818', '2023-01-26', '2023-01-27', 'MEM017'),
+    ('Steven', 'Tyler', 'steventyler@email.com', '1919191919', '2023-01-27', '2023-01-28', 'MEM018'),
+    ('Tina', 'Turner', 'tinaturner@email.com', '2020202020', '2023-01-28', '2023-01-29', 'MEM019'),
+    ('Usher', 'Raymond', 'usherraymond@email.com', '2121212121', '2023-01-29', '2023-01-30', 'MEM020');
 
 -- Starter data inserted into the Instructor table
 INSERT INTO Instructor
@@ -100,7 +110,17 @@ VALUES
     ('Noel', 'Gallagher', 'noelg@email.com', '1122334455', 'INS007'),
     ('Ian', 'Brown', 'ianb@email.com', '2233445566', 'INS008'),
     ('Mani', 'Mounfield', 'manim@email.com', '3344556677', 'INS009'),
-    ('Reni', 'Wren', 'reniw@email.com', '4455667788', 'INS010');
+    ('Reni', 'Wren', 'reniw@email.com', '4455667788', 'INS010'),
+    ('Michael', 'Jordan', 'mjordan@email.com', '9876543210', 'INS011'),
+    ('Serena', 'Williams', 'swilliams@email.com', '8765432109', 'INS012'),
+    ('LeBron', 'James', 'ljames@email.com', '7654321098', 'INS013'),
+    ('Simone', 'Biles', 'sbiles@email.com', '6543210987', 'INS014'),
+    ('Lionel', 'Messi', 'lmessi@email.com', '5432109876', 'INS015'),
+    ('Roger', 'Federer', 'rfederer@email.com', '4321098765', 'INS016'),
+    ('Usain', 'Bolt', 'ubolt@email.com', '3210987654', 'INS017'),
+    ('Katie', 'Ledecky', 'kledecky@email.com', '2109876543', 'INS018'),
+    ('Cristiano', 'Ronaldo', 'cronaldo@email.com', '1098765432', 'INS019'),
+    ('Naomi', 'Osaka', 'nosaka@email.com', '0987654321', 'INS020');
 
 -- Starter data inserted into the ClassType table
 INSERT INTO ClassType
@@ -115,7 +135,17 @@ VALUES
     ('Meditation'),
     ('Boxing'),
     ('Cycling'),
-    ('HIIT');
+    ('HIIT'),
+    ('Kickboxing'),
+    ('Functional Training'),
+    ('Suspension Training'),
+    ('Boot Camp'),
+    ('Aerobics'),
+    ('Spin Class'),
+    ('Barre'),
+    ('CrossFit'),
+    ('Aqua Fitness'),
+    ('Senior Fitness');
 
 -- Starter data inserted into the Room table
 INSERT INTO Room
@@ -130,7 +160,17 @@ VALUES
     ('107', 8),
     ('108', 20),
     ('109', 16),
-    ('110', 18);
+    ('110', 18),
+    ('111', 35),
+    ('112', 40),
+    ('113', 45),
+    ('114', 50),
+    ('115', 5),
+    ('116', 8),
+    ('117', 10),
+    ('118', 12),
+    ('119', 15),
+    ('120', 20);
 
 -- Starter data inserted into the Class table
 INSERT INTO Class
@@ -145,7 +185,17 @@ VALUES
     (7, 4, 3, '2023-01-07 10:00:00', '01:45:00', 'CLS007'),
     (8, 5, 4, '2023-01-08 11:00:00', '01:30:00', 'CLS008'),
     (9, 1, 5, '2023-01-09 12:00:00', '02:15:00', 'CLS009'),
-    (10, 2, 1, '2023-01-10 13:00:00', '01:00:00', 'CLS010');
+    (10, 2, 1, '2023-01-10 13:00:00', '01:00:00', 'CLS010'),
+    (6, 6, 6, '2023-01-11 07:00:00', '01:00:00', 'CLS011'),
+    (7, 7, 7, '2023-01-12 08:30:00', '01:30:00', 'CLS012'),
+    (8, 8, 8, '2023-01-13 09:00:00', '01:00:00', 'CLS013'),
+    (9, 9, 9, '2023-01-14 10:30:00', '02:00:00', 'CLS014'),
+    (10, 10, 10, '2023-01-15 11:00:00', '01:30:00', 'CLS015'),
+    (1, 2, 3, '2023-01-16 12:00:00', '01:00:00', 'CLS016'),
+    (2, 3, 4, '2023-01-17 13:00:00', '01:30:00', 'CLS017'),
+    (3, 4, 5, '2023-01-18 14:00:00', '02:00:00', 'CLS018'),
+    (4, 5, 1, '2023-01-19 15:00:00', '01:45:00', 'CLS019'),
+    (5, 1, 2, '2023-01-20 16:00:00', '01:30:00', 'CLS020');
 
 -- Starter data inserted into the Participants table
 INSERT INTO Participants
@@ -160,7 +210,17 @@ VALUES
     (4, 2),
     (5, 3),
     (5, 4),
-    (1, 5);
+    (1, 5),
+    (6, 6),
+    (6, 7),
+    (7, 8),
+    (7, 9),
+    (8, 10),
+    (8, 1),
+    (9, 2),
+    (9, 3),
+    (10, 4),
+    (10, 5);
 
 \c postgres
 \c gym

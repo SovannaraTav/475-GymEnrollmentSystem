@@ -28,7 +28,7 @@ public class Terminal {
         case 1: {
           String classNumber = getInputtedClassNumber();
           String instructorNumber = getInputtedInstructorNumber();
-          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.addInstructorToClass(classNumber, instructorNumber));
+          // dealWithUnsuccessfulTransaction(GymEnrollmentSystem.addInstructorToClass(classNumber, instructorNumber));
         }
         case 2: {
           break;
