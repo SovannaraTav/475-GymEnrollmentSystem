@@ -16,16 +16,15 @@ import java.util.Properties;
 public class GymEnrollmentSystem
 {
     public static Connection conn;
-    public static void main(String[] args)
+    public static void main(String[] args) throws SQLException
     {
         Terminal.runTerminal();
     }
 
     /** #1
      * @Author Sandesh Rai
-     * @return returns true if updating a class' instructor initially not set to
-     * NULL was successful and displays the number of rows updated. Otherwise,
-     * return false.
+     * @return returns true if updating a class' instructor in the Class table was
+     * successful and displays the number of rows updated. Otherwise, returns false.
      */
     public static boolean updateInstructorInClass(
             String classNumber, String newInstructorNumber)
@@ -36,7 +35,7 @@ public class GymEnrollmentSystem
                 UPDATE Class
                 SET instructorID = 
                     (SELECT id FROM Instructor WHERE instructorNumber = ?)
-                WHERE instructorID IS NOT NULL AND classNumber = ?
+                WHERE classNumber = ?
                 """
             );
             query.setString(1, newInstructorNumber);
@@ -56,15 +55,16 @@ public class GymEnrollmentSystem
 
     /** #2
      * @Author Sandesh Rai
-     * @return returns true if updating a class' instructor to NULL was successful
-     * and displays the number of rows updated. Otherwise, return false.
+     * @return returns true if updating a class' instructor to NULL in the Class
+     * table was successful and displays the number of rows updated. Otherwise,
+     * returns false.
      */
     public static boolean removeInstructorFromClass(String classNumber)
     {
         try
         {
             PreparedStatement query = conn.prepareStatement("""
-                UPDATE Instructor
+                UPDATE Class
                 SET instructorID = NULL
                 WHERE classNumber = ?
                 """
@@ -219,8 +219,8 @@ public class GymEnrollmentSystem
 
     /** #7
      * @Author Sandesh Rai
-     * @return returns true if updating a member's email was successful and displays
-     * the number of rows updated. Otherwise, returns false.
+     * @return returns true if updating a member's email in the Member table was
+     * successful and displays the number of rows updated. Otherwise, returns false.
      */
     public static boolean updateMemberEmail(String memberNumber, String newValue)
     {
@@ -249,8 +249,9 @@ public class GymEnrollmentSystem
 
     /** #8
      * @Author Sandesh Rai
-     * @return returns true if updating a member's phone number was successful and
-     * displays the number of rows updated. Otherwise, returns false.
+     * @return returns true if updating a member's phone number in the Member table
+     * was successful and displays the number of rows updated. Otherwise, returns
+     * false.
      */
     public static boolean updateMemberPhoneNumber(
             String memberNumber, String newValue)
@@ -280,8 +281,9 @@ public class GymEnrollmentSystem
 
     /** #9
      * @Author Sandesh Rai
-     * @return returns true if updating a member's last payment was successful and
-     * displays the number of rows updated. Otherwise, returns false.
+     * @return returns true if updating a member's last payment in the Member table
+     * was successful and displays the number of rows updated. Otherwise, returns
+     * false.
      */
     public static boolean updateMemberLastPayment(
             String memberNumber, String newValue)
@@ -311,24 +313,34 @@ public class GymEnrollmentSystem
 
     /** #10
      * @Author Sandesh Rai
-     * @return returns true if removing a member from the Member table was successful
-     * and displays the number of rows deleted. Otherwise, returns false.
+     *
+     * @return returns true if removing a member from the Member table and their
+     * class enrollments from the Participants table was successful and displays
+     * the number of rows deleted from both tables. Otherwise, returns false.
      */
     public static boolean removeMember(String memberNumber)
     {
         try
         {
             PreparedStatement query = conn.prepareStatement("""
-                DELETE FROM Member
-                WHERE memberNumber = ?
+                DELETE FROM Participants
+                WHERE memberID = (SELECT id FROM Member WHERE memberNumber = ?)
                 """
             );
             query.setString(1, memberNumber);
 
+            PreparedStatement query2 = conn.prepareStatement("""
+                DELETE FROM Member
+                WHERE memberNumber = ?
+                """
+            );
+            query2.setString(1, memberNumber);
+
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
-            int rowsDeleted = query.executeUpdate();
+            int rowsDeleted = (query.executeUpdate() + query2.executeUpdate());
             System.out.println("Rows deleted: " + rowsDeleted);
             query.close();
+            query2.close();
         }
         catch(SQLException e)
         {
@@ -438,24 +450,37 @@ public class GymEnrollmentSystem
 
     /** #14
      * @Author Sovannara Tav
-     * @return returns true if removing an instructor from the Instructor table was
-     * successful and displays the number of rows deleted. Otherwise, returns false.
+     * @return returns true if removing an instructor from the Instructor table and
+     * updating their previously assigned classes to NULL from the Class table was
+     * successful and displays the number of rows updated and deleted. Otherwise,
+     * returns false.
      */
     public static boolean removeInstructor(String instructorNumber)
     {
         try
         {
             PreparedStatement query = conn.prepareStatement("""
-                DELETE FROM Instructor
-                WHERE instructorNumber = ?
+                UPDATE Class
+                SET instructorId = NULL
+                WHERE instructorId = 
+                    (SELECT id FROM Instructor WHERE instructorNumber = ?)
                 """
             );
             query.setString(1, instructorNumber);
 
+            PreparedStatement query2 = conn.prepareStatement("""
+                DELETE FROM Instructor
+                WHERE instructorNumber = ?
+                """
+            );
+            query2.setString(1, instructorNumber);
+
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
-            int rowsDeleted = query.executeUpdate();
+            int rowsUpdated = query.executeUpdate();
+            int rowsDeleted = query2.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
             System.out.println("Rows deleted: " + rowsDeleted);
-            query.close();
+            query2.close();
         }
         catch(SQLException e)
         {
@@ -467,7 +492,7 @@ public class GymEnrollmentSystem
     /** #15
      * @Author Sovannara Tav
      * @return returns true if adding a new class to the Class table was successful
-     * and displays the number of rows updated. Otherwise, returns false.
+     * and displays the number of rows inserted. Otherwise, returns false.
      */
     public static boolean addClass(
             String classTypeName, String instructorNumber, String roomNumber,
@@ -854,7 +879,7 @@ public class GymEnrollmentSystem
     /** #28
      * @Author Adam Chhor
      * @return Formatted String Table of members' information of "classNumber" and
-     * limits column by "numberOfRowsToReturn"
+     * limits column by "numberOfRowsToReturn".
      */
     public static String getMembersInClass(
             String classNumber, int numberOfRowsToReturn) throws SQLException

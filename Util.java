@@ -9,7 +9,8 @@ import java.sql.SQLException;
  */
 public class Util {
 
-  public static String parseDataBase(ResultSet rs) throws SQLException {
+  public static String parseDataBase(ResultSet rs) throws SQLException
+  {
     StringBuilder formattedStringBuilder = new StringBuilder();
     ResultSetMetaData metaData = rs.getMetaData();
     for(int i = 1; i <= metaData.getColumnCount(); i++)
