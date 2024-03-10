@@ -51,7 +51,7 @@ CREATE TABLE Class (
     ID SERIAL,
     TypeID INTEGER NOT NULL,
     InstructorID INTEGER,
-    RoomID INTEGER NOT NULL,
+    RoomID INTEGER,
     StartTime TIMESTAMP NOT NULL,
     Duration INTERVAL NOT NULL,
     ClassNumber VARCHAR(15) NOT NULL UNIQUE,

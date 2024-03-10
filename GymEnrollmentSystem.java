@@ -33,7 +33,7 @@ public class GymEnrollmentSystem
         {
             PreparedStatement query = conn.prepareStatement("""
                 UPDATE Class
-                SET instructorID = 
+                SET instructorId = 
                     (SELECT id FROM Instructor WHERE instructorNumber = ?)
                 WHERE classNumber = ?
                 """
@@ -65,7 +65,7 @@ public class GymEnrollmentSystem
         {
             PreparedStatement query = conn.prepareStatement("""
                 UPDATE Class
-                SET instructorID = NULL
+                SET instructorId = NULL
                 WHERE classNumber = ?
                 """
             );
@@ -210,7 +210,8 @@ public class GymEnrollmentSystem
             int rowsInserted = query.executeUpdate();
             System.out.println("Rows inserted: " + rowsInserted);
             query.close();
-        } catch(SQLException e)
+        }
+        catch(SQLException e)
         {
             return false;
         }
@@ -313,7 +314,6 @@ public class GymEnrollmentSystem
 
     /** #10
      * @Author Sandesh Rai
-     *
      * @return returns true if removing a member from the Member table and their
      * class enrollments from the Participants table was successful and displays
      * the number of rows deleted from both tables. Otherwise, returns false.
@@ -480,6 +480,7 @@ public class GymEnrollmentSystem
             int rowsDeleted = query2.executeUpdate();
             System.out.println("Rows updated: " + rowsUpdated);
             System.out.println("Rows deleted: " + rowsDeleted);
+            query.close();
             query2.close();
         }
         catch(SQLException e)
@@ -508,14 +509,14 @@ public class GymEnrollmentSystem
                     (SELECT id FROM ClassType WHERE name = ?),
                     (SELECT id FROM Instructor WHERE instructorNumber = ?),
                     (SELECT id FROM Room WHERE roomNumber = ?),
-                    ?, ?, ?
+                    ?::TIMESTAMP, ?::INTERVAL, ?
                     )
                 """
             );
             query.setString(1, classTypeName);
             query.setString(2, instructorNumber);
             query.setString(3, roomNumber);
-            query.setTimestamp(4, Timestamp.valueOf(startTime));
+            query.setString(4, startTime);
             query.setString(5, duration);
             query.setString(6, classNumber);
 
@@ -542,11 +543,11 @@ public class GymEnrollmentSystem
         {
             PreparedStatement query = conn.prepareStatement("""
                 UPDATE Class
-                SET startTime = ?
+                SET startTime = ?::TIMESTAMP
                 WHERE classNumber = ?
                 """
             );
-            query.setTimestamp(1, Timestamp.valueOf(newValue));
+            query.setString(1, newValue);
             query.setString(2, classNumber);
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
@@ -572,7 +573,7 @@ public class GymEnrollmentSystem
         {
             PreparedStatement query = conn.prepareStatement("""
                 UPDATE Class
-                SET duration = ?
+                SET duration = ?::INTERVAL
                 WHERE classNumber = ?
                 """
             );
@@ -593,26 +594,35 @@ public class GymEnrollmentSystem
 
     /** #18
      * @Author Sovannara Tav
-     * @return returns true if updating a class' room number in the Class table was
-     * successful and displays the number of rows updated. Otherwise, returns false.
+     * @return returns true if removing a class from the Class table and its
+     * corresponding records from the Participants table was successful and displays
+     * the number of rows deleted from both tables. Otherwise, returns false.
      */
-    public static boolean updateClassRoomNumber(String classNumber, String roomNumber)
+    public static boolean removeClass(String classNumber)
     {
         try
         {
             PreparedStatement query = conn.prepareStatement("""
-                UPDATE Class
-                SET roomId = (SELECT id FROM Room WHERE roomNumber = ?)
+                DELETE FROM Participants
+                WHERE classId = (SELECT id FROM Class WHERE classNumber = ?)
+                """
+            );
+            query.setString(1, classNumber);
+
+            PreparedStatement query2 = conn.prepareStatement("""
+                DELETE FROM Class
                 WHERE classNumber = ?
                 """
             );
-            query.setString(1, roomNumber);
-            query.setString(2, classNumber);
+            query2.setString(1, classNumber);
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
+            int rowsDeleted = query2.executeUpdate();
             System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println("Rows deleted: " + rowsDeleted);
             query.close();
+            query2.close();
         }
         catch(SQLException e)
         {
@@ -622,34 +632,6 @@ public class GymEnrollmentSystem
     }
 
     /** #19
-     * @Author Sovannara Tav
-     * @return returns true if removing a class from the Class table was successful
-     * and displays the number of rows deleted. Otherwise, returns false.
-     */
-    public static boolean removeClass(String classNumber)
-    {
-        try
-        {
-            PreparedStatement query = conn.prepareStatement("""
-                DELETE FROM Class
-                WHERE classNumber = ?
-                """
-            );
-            query.setString(1, classNumber);
-
-            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
-            int rowsDeleted = query.executeUpdate();
-            System.out.println("Rows deleted: " + rowsDeleted);
-            query.close();
-        }
-        catch(SQLException e)
-        {
-            return false;
-        }
-        return true;
-    }
-
-    /** #20
      * @Author Sovannara Tav
      * @return returns true if adding a new room to the Room table was successful
      * and displays the number of rows inserted. Otherwise, returns false.
@@ -678,35 +660,7 @@ public class GymEnrollmentSystem
         return true;
     }
 
-    /** #21
-     * @Author Sovannara Tav
-     * @return returns true if updating the room number of a room in the Room table
-     * was successful and displays the number of rows updated. Otherwise, returns
-     * false.
-     */
-    public static boolean updateRoomNumber(String roomNumber, String newValue)
-    {
-        try {
-            PreparedStatement query = conn.prepareStatement("""
-                UPDATE Room
-                SET roomNumber = ?
-                WHERE roomNumber = ?
-                """
-            );
-            query.setString(1, newValue);
-            query.setString(2, roomNumber);
-
-            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
-            int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
-            query.close();
-        } catch(SQLException e) {
-            return false;
-        }
-        return true;
-    }
-
-    /** #22
+    /** #20
      * @Author Sovannara Tav
      * @return returns true if updating a room's capacity in the Room table was
      * successful and displays the number of rows updated. Otherwise, returns false.
@@ -736,25 +690,97 @@ public class GymEnrollmentSystem
         return true;
     }
 
-    /** #23
+    /** #21
      * @Author Sovannara Tav
-     * @return returns true if removing a room from the Room table was successful
-     * and displays the number of rows deleted. Otherwise, returns false.
+     * @return returns true if removing a room from the Room table and updating
+     * their previously assigned classes to NULL from the Class table was successful
+     * and displays the number of rows updated and deleted. Otherwise, returns false.
      */
     public static boolean removeRoom(String roomNumber)
     {
         try
         {
             PreparedStatement query = conn.prepareStatement("""
-                DELETE FROM Room
-                WHERE roomNumber = ?
+                UPDATE Class
+                SET roomId = NULL
+                WHERE roomId = (SELECT id FROM Room WHERE roomNumber = ?)
                 """
             );
             query.setString(1, roomNumber);
 
+            PreparedStatement query2 = conn.prepareStatement("""
+                DELETE FROM Room
+                WHERE roomNumber = ?
+                """
+            );
+            query2.setString(1, roomNumber);
+
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
-            int rowsDeleted = query.executeUpdate();
+            int rowsUpdated = query.executeUpdate();
+            int rowsDeleted = query2.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
             System.out.println("Rows deleted: " + rowsDeleted);
+            query.close();
+            query2.close();
+        }
+        catch(SQLException e)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /** #22
+     * @Author Sovannara Tav
+     * @return returns true if updating a class' room number in the Class table was
+     * successful and displays the number of rows updated. Otherwise, returns false.
+     */
+    public static boolean updateRoomInClass(String classNumber, String newRoomNumber)
+    {
+        try
+        {
+            PreparedStatement query = conn.prepareStatement("""
+                UPDATE Class
+                SET roomId = (SELECT id FROM Room WHERE roomNumber = ?)
+                WHERE classNumber = ?
+                """
+            );
+            query.setString(1, newRoomNumber);
+            query.setString(2, classNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsUpdated = query.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
+            query.close();
+        }
+        catch(SQLException e)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /** #23
+     * @Author Sovannara Tav
+     * @return returns true if updating a class' room number to NULL in the Class
+     * table was successful and displays the number of rows updated. Otherwise,
+     * returns false.
+     */
+    public static boolean removeRoomFromClass(String classNumber)
+    {
+        try
+        {
+            PreparedStatement query = conn.prepareStatement("""
+                UPDATE Class
+                SET roomId = NULL
+                WHERE classNumber = ?
+                """
+            );
+            query.setString(1, classNumber);
+
+            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
+            int rowsUpdated = query.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -794,66 +820,55 @@ public class GymEnrollmentSystem
 
     /** #25
      * @Author Sovannara Tav
-     * @return returns true if removing a class type from the ClassType table was
-     * successful and displays the number of rows deleted. Otherwise, returns false.
-     */
-    public static boolean removeClassType(String name)
-    {
-        try
-        {
-            PreparedStatement query = conn.prepareStatement("""
-                DELETE FROM ClassType
-                WHERE name = ?
-                """
-            );
-            query.setString(1, name);
-
-            // Need to use .executeUpdate() instead of .executeQuery() for CRUD
-            int rowsDeleted = query.executeUpdate();
-            System.out.println("Rows deleted: " + rowsDeleted);
-            query.close();
-        }
-        catch(SQLException e)
-        {
-            return false;
-        }
-        return true;
-    }
-
-    /** #26
-     * @Author Sovannara Tav
-     * @return returns true if the membership of a gym member from the Member table
-     * is active. Otherwise, returns false.
+     * @return returns true if the last payment of a gym member from the Member table
+     * is NULL or less than or equal to 30 days indicating their gym membership is
+     * active. Otherwise, indicates their gym membership is not active, but still
+     * returns true.
      */
     public static boolean checkGymMembership(String memberNumber)
     {
         try
         {
             PreparedStatement query = conn.prepareStatement("""
-                    SELECT lastPayment
+                    SELECT
+                        CASE
+                            WHEN lastPayment IS NULL
+                                THEN '1' 
+                            WHEN (CURRENT_DATE - lastPayment) <= 30
+                                THEN '1'
+                            ELSE '0'
+                        END AS membershipStatus
                     FROM Member
                     WHERE memberNumber = ?
                     """
             );
-            query.setDate(1, Date.valueOf(memberNumber));
+            query.setString(1, memberNumber);
 
-            /*
-            If lastPayment is an empty string, thus indicating that it is NULL, then
-            the membership of a gym member is not active
-             */
+
             ResultSet result = query.executeQuery();
-            if (result.getString(1).isEmpty()) {
-                return false;
+            if (result.next())
+            {
+                if (result.getString("membershipStatus").equals("0"))
+                {
+                    System.out.println("Gym membership is not active");
+                }
+                else
+                {
+                    System.out.println("Gym membership is active");
+                }
             }
+            result.close();
+            query.close();
         }
         catch(SQLException e)
         {
+            System.out.println(e.getMessage());
             return false;
         }
         return true;
     }
 
-    /** #27
+    /** #26
      * @Author Ian McNeal
      * @return Formatted String of instructor information of a given class.
      */
@@ -876,7 +891,7 @@ public class GymEnrollmentSystem
         return output;
     }
 
-    /** #28
+    /** #27
      * @Author Adam Chhor
      * @return Formatted String Table of members' information of "classNumber" and
      * limits column by "numberOfRowsToReturn".
@@ -902,7 +917,7 @@ public class GymEnrollmentSystem
         return output;
     }
 
-    /** #29
+    /** #28
      * @Author Ian McNeal
      * @return Formatted String Table of all classes member is enrolled in.
      */
@@ -930,7 +945,7 @@ public class GymEnrollmentSystem
         return output;
     }
 
-    /** #30
+    /** #29
      * @Author Ian McNeal
      * @return Formatted String Table of all classes member is enrolled in on a
      * given day.
@@ -962,7 +977,7 @@ public class GymEnrollmentSystem
         return output;
     }
 
-    /** #31
+    /** #30
      * @Author Ian McNeal
      * @return Formatted String Table of all classes an instructor leads.
      */
@@ -988,7 +1003,7 @@ public class GymEnrollmentSystem
         return output;
     }
 
-    /** #32
+    /** #31
      * @Author Ian McNeal
      * @return Formatted String Table of all classes an instructor leads on a given
      * day.
@@ -1016,7 +1031,7 @@ public class GymEnrollmentSystem
         return output;
     }
 
-    /** #33
+    /** #32
      * @Author Ian McNeal
      * @return Formatted String Table of all classes of a given class type.
      */
@@ -1043,7 +1058,7 @@ public class GymEnrollmentSystem
         return output;
     }
 
-    /** #34
+    /** #33
      * @Author Ian McNeal
      * @return Formatted String Table of all classes of a given class type on a given
      * day.

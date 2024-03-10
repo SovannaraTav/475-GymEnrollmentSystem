@@ -20,9 +20,9 @@ public class Terminal
     boolean isRunning = true;
     while (isRunning)
     {
-      System.out.println("Enter a number between 0 and 34 inclusively:");
       displayOptions();
-      int apiNumber = getIntInput();
+      System.out.println("Enter a number between 0 and 33 inclusively:");
+      int apiNumber = getUserInput();
       switch (apiNumber)
       {
         case 0:
@@ -34,16 +34,16 @@ public class Terminal
         {
           String classNumber = getInputtedClassNumber();
           String newInstructorNumber = getInputtedNewInstructorNumber();
-          dealWithUnsuccessfulTransaction(
-                  GymEnrollmentSystem.updateInstructorInClass(classNumber, newInstructorNumber));
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.updateInstructorInClass(
+                  classNumber, newInstructorNumber));
           // Causes the corresponding class record to move to the bottom
           break;
         }
         case 2:
         {
           String classNumber = getInputtedClassNumber();
-          dealWithUnsuccessfulTransaction(
-                  GymEnrollmentSystem.removeInstructorFromClass(classNumber));
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.removeInstructorFromClass(
+                  classNumber));
           // Causes the corresponding class record to move to the bottom
           break;
         }
@@ -51,8 +51,8 @@ public class Terminal
         {
           String classNumber = getInputtedClassNumber();
           String memberNumber = getInputtedMemberNumber();
-          dealWithUnsuccessfulTransaction(
-                  GymEnrollmentSystem.addMemberToClass(classNumber, memberNumber));
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.addMemberToClass(
+                  classNumber, memberNumber));
           // Normal behavior
           break;
         }
@@ -61,8 +61,8 @@ public class Terminal
           String oldClassNumber = getInputtedClassNumber();
           String newClassNumber = getInputtedClassNumber();
           String memberNumber = getInputtedMemberNumber();
-          dealWithUnsuccessfulTransaction(
-                  GymEnrollmentSystem.updateMemberClassEnrollment(oldClassNumber, newClassNumber, memberNumber));
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.updateMemberClassEnrollment(
+                  oldClassNumber, newClassNumber, memberNumber));
           // Causes the corresponding participant record to move to the bottom
           break;
         }
@@ -70,8 +70,8 @@ public class Terminal
         {
           String classNumber = getInputtedClassNumber();
           String memberNumber = getInputtedMemberNumber();
-          dealWithUnsuccessfulTransaction(
-                  GymEnrollmentSystem.removeMemberFromClass(classNumber, memberNumber));
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.removeMemberFromClass(
+                  classNumber, memberNumber));
           // Normal behavior
           break;
         }
@@ -165,50 +165,103 @@ public class Terminal
         }
         case 15:
         {
+          String classTypeName = getInputtedClassType();
+          String instructorNumber = getInputtedInstructorNumber();
+          String roomNumber = getInputtedRoomNumber();
+          String startTime = getInputtedStartTime();
+          String duration = getInputtedDuration();
+          String classNumber = getInputtedClassNumber();
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.addClass(
+                  classTypeName, instructorNumber, roomNumber, startTime,
+                  duration, classNumber));
+          // Normal behavior
           break;
         }
         case 16:
         {
+          String classNumber = getInputtedClassNumber();
+          String newValue = getInputtedNewValue();
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.updateClassStartTime(
+                  classNumber, newValue));
+          // Causes the corresponding class record to move to the bottom
           break;
         }
         case 17:
         {
+          String classNumber = getInputtedClassNumber();
+          String newValue = getInputtedNewValue();
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.updateClassDuration(
+                  classNumber, newValue));
+          // Causes the corresponding class record to move to the bottom
           break;
         }
         case 18:
         {
+          String classNumber = getInputtedClassNumber();
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.removeClass(
+                  classNumber));
+          // Normal behavior
           break;
         }
         case 19:
         {
+          String roomNumber = getInputtedRoomNumber();
+          int capacity = getInputtedCapacity();
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.addRoom(
+                  roomNumber, capacity));
+          // Normal behavior
           break;
         }
         case 20:
         {
+          String roomNumber = getInputtedRoomNumber();
+          int newValue = getInputtedCapacity();
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.updateRoomCapacity(
+                  roomNumber, newValue));
+          // Causes the corresponding room record to move to the bottom
           break;
         }
         case 21:
         {
+          String roomNumber = getInputtedRoomNumber();
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.removeRoom(
+                  roomNumber));
+          /*
+          Normal behavior when removing a room record. The corresponding class
+          records are move to the bottom
+           */
           break;
         }
         case 22:
         {
+          String classNumber = getInputtedClassNumber();
+          String newRoomNumber = getInputtedNewRoomNumber();
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.updateRoomInClass(
+                  classNumber, newRoomNumber));
+          // Causes the corresponding class record to move to the bottom
           break;
         }
         case 23:
         {
+          String classNumber = getInputtedClassNumber();
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.removeRoomFromClass(
+                  classNumber));
+          // Causes the corresponding class record to move to the bottom
           break;
         }
         case 24:
         {
+          String name = getInputtedClassType();
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.addClassType(
+                  name));
+          // Normal behavior
           break;
         }
         case 25:
         {
-          break;
-        }
-        case 26:
-        {
+          String memberNumber = getInputtedMemberNumber();
+          dealWithUnsuccessfulTransaction(GymEnrollmentSystem.checkGymMembership(
+                  memberNumber));
           break;
         }
       }
@@ -220,51 +273,51 @@ public class Terminal
       {
         switch (apiNumber)
         {
-          case 27:
+          case 26:
           {
             String classNumber = getInputtedClassNumber();
             System.out.println(GymEnrollmentSystem.getInstructorForClass(classNumber));
             break;
           }
-          case 28:
+          case 27:
           {
             String classNumber = getInputtedClassNumber();
             int numberOfRowsToReturn = getInputtedNumberOfRowsToReturn();
             System.out.println(GymEnrollmentSystem.getMembersInClass(classNumber, numberOfRowsToReturn));
             break;
           }
-          case 29:
+          case 28:
           {
             String memberNumber = getInputtedMemberNumber();
             System.out.println(GymEnrollmentSystem.getGymMemberClasses(memberNumber));
             break;
           }
-          case 30:
+          case 29:
           {
             String memberNumber = getInputtedMemberNumber();
             String date = getInputtedDate();
             System.out.println(GymEnrollmentSystem.getGymMemberClasses(memberNumber, date));
             break;
           }
-          case 31:
+          case 30:
           {
             String instructorNumber = getInputtedInstructorNumber();
             System.out.println(GymEnrollmentSystem.getGymInstructorClasses(instructorNumber));
             break;
           }
-          case 32: {
+          case 31: {
             String instructorNumber = getInputtedInstructorNumber();
             String date = getInputtedDate();
             System.out.println(GymEnrollmentSystem.getGymInstructorClasses(instructorNumber, date));
             break;
           }
-          case 33:
+          case 32:
           {
             String classType = getInputtedClassType();
             System.out.println(GymEnrollmentSystem.getGymClassByClassType(classType));
             break;
           }
-          case 34:
+          case 33:
           {
             String classType = getInputtedClassType();
             String date = getInputtedDate();
@@ -275,7 +328,7 @@ public class Terminal
       }
       catch (SQLException e)
       {
-        System.out.println("ERRORRRRR");
+        System.out.println("Error");
         System.out.println(e.toString());
       }
     }
@@ -317,7 +370,8 @@ public class Terminal
     }
   }
 
-  public static void displayOptions() {
+  public static void displayOptions()
+  {
     System.out.println("0 - Exit");
     System.out.println("1 - updateInstructorInClass()");
     System.out.println("2 - removeInstructorFromClass()");
@@ -333,15 +387,25 @@ public class Terminal
     System.out.println("12 - updateInstructorEmail()");
     System.out.println("13 - updateInstructorPhoneNumber()");
     System.out.println("14 - removeInstructor()");
-    //
-    System.out.println("27 - getInstructorForClass()");
-    System.out.println("28 - getMembersInClass()");
-    System.out.println("29 - getGymMemberClasses()");
-    System.out.println("30 - getGymMemberClasses() on date");
-    System.out.println("31 - getGymInstructorClasses()");
-    System.out.println("32 - getGymInstructorClasses() on date");
-    System.out.println("33 - getGymClassByClassType()");
-    System.out.println("34 - getGymClassByClassType() on date");
+    System.out.println("15 - addClass()");
+    System.out.println("16 - updateClassStartTime()");
+    System.out.println("17 - updateClassDuration()");
+    System.out.println("18 - removeClass()");
+    System.out.println("19 - addRoom()");
+    System.out.println("20 - updateRoomCapacity()");
+    System.out.println("21 - removeRoom()");
+    System.out.println("22 - updateRoomInClass()");
+    System.out.println("23 - removeRoomFromClass()");
+    System.out.println("24 - addClassType()");
+    System.out.println("25 - checkGymMembership()");
+    System.out.println("26 - getInstructorForClass()");
+    System.out.println("27 - getMembersInClass()");
+    System.out.println("28 - getGymMemberClasses()");
+    System.out.println("29 - getGymMemberClasses() on date");
+    System.out.println("30 - getGymInstructorClasses()");
+    System.out.println("31 - getGymInstructorClasses() on date");
+    System.out.println("32 - getGymClassByClassType()");
+    System.out.println("33 - getGymClassByClassType() on date");
   }
 
   //TODO: better work idk?
@@ -384,7 +448,7 @@ public class Terminal
     return inputString;
   }
 
-  public static int getIntInput()
+  public static int getUserInput()
   {
     boolean isValidInput = false;
     int inputInt = 0;
@@ -406,11 +470,12 @@ public class Terminal
   public static int getIntInput(
           String typeOfParam, String paramName, String exampleText)
   {
+    System.out.println();
+    System.out.println("Enter Value for " + paramName + ":");
     System.out.println("Type: " + typeOfParam);
-    System.out.println("Ex. " + exampleText);
     if (!exampleText.isEmpty())
     {
-      System.out.println(paramName + ": " + exampleText);
+      System.out.println("Ex. " + exampleText);
     }
     boolean isValidInput = false;
     int inputInt = 0;
@@ -475,9 +540,24 @@ public class Terminal
     return getStringInput("String", "newValue", "");
   }
 
+  public static String getInputtedRoomNumber()
+  {
+    return getStringInput("String", "roomNumber", "");
+  }
+
+  public static String getInputtedNewRoomNumber()
+  {
+    return getStringInput("String", "newRoomNumber", "");
+  }
+
   public static String getInputtedStartTime()
   {
     return getStringInput("String", "startTime", "");
+  }
+
+  public static String getInputtedDuration()
+  {
+    return getStringInput("String", "duration", "");
   }
 
   public static int getInputtedCapacity()
