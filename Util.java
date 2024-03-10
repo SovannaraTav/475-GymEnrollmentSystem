@@ -15,16 +15,16 @@ public class Util {
     ResultSetMetaData metaData = rs.getMetaData();
     for(int i = 1; i <= metaData.getColumnCount(); i++)
     {
-      formattedStringBuilder.append(String.format("%-20s", metaData.getColumnName(i)));
+      formattedStringBuilder.append(String.format("%-30s", metaData.getColumnName(i)));
     }
     formattedStringBuilder.append("\n");
-    formattedStringBuilder.append("-".repeat(20* metaData.getColumnCount()));
+    formattedStringBuilder.append("-".repeat(30* metaData.getColumnCount()));
     formattedStringBuilder.append("\n");
     while (rs.next())
     {
       for(int i = 1; i <= metaData.getColumnCount(); i++)
       {
-        formattedStringBuilder.append(String.format("%-20s", rs.getString(i)));
+        formattedStringBuilder.append(String.format("%-30s", rs.getString(i)));
       }
       formattedStringBuilder.append("\n");
     }

@@ -21,7 +21,7 @@ public class Terminal
     while (isRunning)
     {
       displayOptions();
-      System.out.println("Enter a number between 0 and 33 inclusively:");
+      System.out.println("\nEnter a number between 0 and 33 inclusively:");
       int apiNumber = getUserInput();
       switch (apiNumber)
       {
@@ -265,10 +265,8 @@ public class Terminal
           break;
         }
       }
-//    }finally {
-//        continue;
-//      }
-      //deals with return of String as they throw SQLException
+
+      // Deals with return of String as they throw SQLException
       try
       {
         switch (apiNumber)
@@ -276,52 +274,60 @@ public class Terminal
           case 26:
           {
             String classNumber = getInputtedClassNumber();
-            System.out.println(GymEnrollmentSystem.getInstructorForClass(classNumber));
+            System.out.println(GymEnrollmentSystem.getInstructorForClass(
+                    classNumber));
             break;
           }
           case 27:
           {
             String classNumber = getInputtedClassNumber();
             int numberOfRowsToReturn = getInputtedNumberOfRowsToReturn();
-            System.out.println(GymEnrollmentSystem.getMembersInClass(classNumber, numberOfRowsToReturn));
+            System.out.println(GymEnrollmentSystem.getMembersInClass(
+                    classNumber, numberOfRowsToReturn));
             break;
           }
           case 28:
           {
             String memberNumber = getInputtedMemberNumber();
-            System.out.println(GymEnrollmentSystem.getGymMemberClasses(memberNumber));
+            System.out.println(GymEnrollmentSystem.getGymMemberClasses(
+                    memberNumber));
             break;
           }
           case 29:
           {
             String memberNumber = getInputtedMemberNumber();
             String date = getInputtedDate();
-            System.out.println(GymEnrollmentSystem.getGymMemberClasses(memberNumber, date));
+            System.out.println(GymEnrollmentSystem.getGymMemberClasses(
+                    memberNumber, date));
             break;
           }
           case 30:
           {
             String instructorNumber = getInputtedInstructorNumber();
-            System.out.println(GymEnrollmentSystem.getGymInstructorClasses(instructorNumber));
+            System.out.println(GymEnrollmentSystem.getGymInstructorClasses(
+                    instructorNumber));
             break;
           }
           case 31: {
             String instructorNumber = getInputtedInstructorNumber();
             String date = getInputtedDate();
-            System.out.println(GymEnrollmentSystem.getGymInstructorClasses(instructorNumber, date));
+            System.out.println(GymEnrollmentSystem.getGymInstructorClasses(
+                    instructorNumber, date));
             break;
           }
           case 32:
           {
             String classType = getInputtedClassType();
-            System.out.println(GymEnrollmentSystem.getGymClassByClassType(classType));
+            System.out.println(GymEnrollmentSystem.getGymClassByClassType(
+                    classType));
             break;
           }
           case 33:
           {
             String classType = getInputtedClassType();
             String date = getInputtedDate();
-            System.out.println(GymEnrollmentSystem.getGymClassByClassType(classType, date));
+            System.out.println(GymEnrollmentSystem.getGymClassByClassType(
+                    classType, date));
             break;
           }
         }
@@ -330,9 +336,10 @@ public class Terminal
       {
         System.out.println("Error");
         System.out.println(e.toString());
+        System.out.println();
       }
     }
-    System.out.println("Exiting System...");
+    System.out.println("Exiting system. Database connection closed");
     GymEnrollmentSystem.conn.close();
   }
 
@@ -360,9 +367,8 @@ public class Terminal
     try
     {
       GymEnrollmentSystem.conn = DriverManager.getConnection(url, user, password);
-//      System.out.println("Database connection established");
-//           System.out.println(getMembersInClass("CLS001", 4));
-      //PRINT OUT TEST QUERIES HERE:
+      System.out.println("Database connection established");
+      // PRINT OUT TEST QUERIES HERE:
     }
     catch (SQLException e)
     {
@@ -401,23 +407,22 @@ public class Terminal
     System.out.println("26 - getInstructorForClass()");
     System.out.println("27 - getMembersInClass()");
     System.out.println("28 - getGymMemberClasses()");
-    System.out.println("29 - getGymMemberClasses() on date");
+    System.out.println("29 - getGymMemberClasses() on a given day");
     System.out.println("30 - getGymInstructorClasses()");
-    System.out.println("31 - getGymInstructorClasses() on date");
+    System.out.println("31 - getGymInstructorClasses() on a given day");
     System.out.println("32 - getGymClassByClassType()");
-    System.out.println("33 - getGymClassByClassType() on date");
+    System.out.println("33 - getGymClassByClassType() on a given day");
   }
 
-  //TODO: better work idk?
   public static void dealWithUnsuccessfulTransaction(boolean isSuccessful)
   {
     if (isSuccessful)
     {
-      System.out.println("Success");
+      System.out.println("Success in executing function\n");
     }
     else
     {
-      System.out.println("There was a problem");
+      System.out.println("Error in executing function\n");
     }
   }
 
@@ -429,7 +434,7 @@ public class Terminal
     System.out.println("Type: " + typeOfParam);
     if (!exampleText.isEmpty())
     {
-      System.out.println("Ex. " + exampleText);
+      System.out.println("Example format: " + exampleText);
     }
     boolean isValidInput = false;
     String inputString = "";
@@ -475,7 +480,7 @@ public class Terminal
     System.out.println("Type: " + typeOfParam);
     if (!exampleText.isEmpty())
     {
-      System.out.println("Ex. " + exampleText);
+      System.out.println("Example format: " + exampleText);
     }
     boolean isValidInput = false;
     int inputInt = 0;
@@ -494,89 +499,105 @@ public class Terminal
     return inputInt;
   }
 
-  //useable code, so probalby easier
   public static String getInputtedClassNumber()
   {
-    return getStringInput("String", "classNumber", "");
+    return getStringInput(
+            "String", "classNumber", "CLS021");
   }
 
   public static String getInputtedInstructorNumber()
   {
-    return getStringInput("String", "instructorNumber", "");
+    return getStringInput(
+            "String", "instructorNumber", "INS021");
   }
 
   public static String getInputtedNewInstructorNumber()
   {
-    return getStringInput("String", "newInstructorNumber", "");
+    return getStringInput(
+            "String", "newInstructorNumber", "INS021");
   }
 
   public static String getInputtedMemberNumber()
   {
-    return getStringInput("String", "memberNumber", "");
+    return getStringInput(
+            "String", "memberNumber", "MEM021");
   }
 
   public static String getInputtedFirstName()
   {
-    return getStringInput("String", "firstName", "");
+    return getStringInput(
+            "String", "firstName", "Bob");
   }
 
   public static String getInputtedLastName()
   {
-    return getStringInput("String", "lastName", "");
+    return getStringInput(
+            "String", "lastName", "Smith");
   }
 
   public static String getInputtedEmail()
   {
-    return getStringInput("String", "email", "");
+    return getStringInput(
+            "String", "email", "smith@email.com");
   }
 
   public static String getInputtedPhoneNumber()
   {
-    return getStringInput("String", "phoneNumber", "");
+    return getStringInput(
+            "String", "phoneNumber", "4253525000");
   }
 
   public static String getInputtedNewValue()
   {
-    return getStringInput("String", "newValue", "");
+    return getStringInput(
+            "String", "newValue", "");
   }
 
   public static String getInputtedRoomNumber()
   {
-    return getStringInput("String", "roomNumber", "");
+    return getStringInput(
+            "String", "roomNumber", "121");
   }
 
   public static String getInputtedNewRoomNumber()
   {
-    return getStringInput("String", "newRoomNumber", "");
+    return getStringInput(
+            "String", "newRoomNumber", "121");
   }
 
   public static String getInputtedStartTime()
   {
-    return getStringInput("String", "startTime", "");
+    return getStringInput(
+            "String", "startTime", "2024-03-11 08:45:00");
   }
 
   public static String getInputtedDuration()
   {
-    return getStringInput("String", "duration", "");
+    return getStringInput(
+            "String", "duration", "02:00:00");
   }
 
   public static int getInputtedCapacity()
   {
-    return getIntInput("int", "capacity", "");
+    return getIntInput(
+            "int", "capacity", "100");
   }
 
   public static int getInputtedNumberOfRowsToReturn()
   {
-    return getIntInput("int", "numberOfRowsToReturn", "");
+    return getIntInput(
+            "int", "numberOfRowsToReturn", "10");
   }
 
   public static String getInputtedDate()
   {
-    return getStringInput("Date", "Date", "");
+    return getStringInput(
+            "Date", "Date", "2024-03-11");
   }
 
   public static String getInputtedClassType()
   {
-    return getStringInput("String", "classType", "");
+    return getStringInput(
+            "String", "classType", "Running");
   }
 }

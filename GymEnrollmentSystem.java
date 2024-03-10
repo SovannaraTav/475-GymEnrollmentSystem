@@ -43,7 +43,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Updated instructor in class. Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -73,7 +74,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Remove instructor from class. Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -107,7 +109,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsInserted = query.executeUpdate();
-            System.out.println("Rows inserted: " + rowsInserted);
+            System.out.println(
+                    "Added member to class. Rows inserted: " + rowsInserted);
             query.close();
         }
         catch(SQLException e)
@@ -141,7 +144,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Updated member's class enrollment. Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -173,7 +177,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsDeleted = query.executeUpdate();
-            System.out.println("Rows deleted: " + rowsDeleted);
+            System.out.println(
+                    "Removed member from class. Rows deleted: " + rowsDeleted);
             query.close();
         }
         catch(SQLException e)
@@ -208,7 +213,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsInserted = query.executeUpdate();
-            System.out.println("Rows inserted: " + rowsInserted);
+            System.out.println(
+                    "Added member. Rows inserted: " + rowsInserted);
             query.close();
         }
         catch(SQLException e)
@@ -238,7 +244,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Updated member's email. Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -270,7 +277,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Updated member's phone number. Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -302,7 +310,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Updated member's last payment. Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -338,7 +347,9 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsDeleted = (query.executeUpdate() + query2.executeUpdate());
-            System.out.println("Rows deleted: " + rowsDeleted);
+            System.out.println(
+                    "Removed member and their class enrollments. Rows deleted: "
+                            + rowsDeleted);
             query.close();
             query2.close();
         }
@@ -374,7 +385,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsInserted = query.executeUpdate();
-            System.out.println("Rows inserted: " + rowsInserted);
+            System.out.println(
+                    "Added instructor. Rows inserted: " + rowsInserted);
             query.close();
         }
         catch(SQLException e)
@@ -406,7 +418,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Updated instructor's email. Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -438,7 +451,9 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Updated instructor's phone number. Rows updated: "
+                            + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -478,8 +493,11 @@ public class GymEnrollmentSystem
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
             int rowsDeleted = query2.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
-            System.out.println("Rows deleted: " + rowsDeleted);
+            System.out.println(
+                    "Updated instructor's previously assigned classes. Rows updated: "
+                            + rowsUpdated);
+            System.out.println(
+                    "Removed instructor. Rows deleted: " + rowsDeleted);
             query.close();
             query2.close();
         }
@@ -522,7 +540,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsInserted = query.executeUpdate();
-            System.out.println("Rows inserted: " + rowsInserted);
+            System.out.println(
+                    "Added class. Rows inserted: " + rowsInserted);
             query.close();
         }
         catch(SQLException e)
@@ -552,7 +571,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Updated class' start time. Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -582,7 +602,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Updated class' duration. Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -617,10 +638,10 @@ public class GymEnrollmentSystem
             query2.setString(1, classNumber);
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
-            int rowsUpdated = query.executeUpdate();
-            int rowsDeleted = query2.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
-            System.out.println("Rows deleted: " + rowsDeleted);
+            int rowsDeleted = (query.executeUpdate() + query2.executeUpdate());
+            System.out.println(
+                    "Removed class and their corresponding participants records. " +
+                            "Rows deleted: " + rowsDeleted);
             query.close();
             query2.close();
         }
@@ -650,7 +671,7 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsInserted = query.executeUpdate();
-            System.out.println("Rows inserted: " + rowsInserted);
+            System.out.println("Added room. Rows inserted: " + rowsInserted);
             query.close();
         }
         catch(SQLException e)
@@ -680,7 +701,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Updated room's capacity. Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -718,8 +740,11 @@ public class GymEnrollmentSystem
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
             int rowsDeleted = query2.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
-            System.out.println("Rows deleted: " + rowsDeleted);
+            System.out.println(
+                    "Updated room's previously assigned classes. Rows updated: "
+                            + rowsUpdated);
+            System.out.println(
+                    "Removed room. Rows deleted: " + rowsDeleted);
             query.close();
             query2.close();
         }
@@ -750,7 +775,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Updated room in class. Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -780,7 +806,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsUpdated = query.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated);
+            System.out.println(
+                    "Removed room from class. Rows updated: " + rowsUpdated);
             query.close();
         }
         catch(SQLException e)
@@ -808,7 +835,8 @@ public class GymEnrollmentSystem
 
             // Need to use .executeUpdate() instead of .executeQuery() for CRUD
             int rowsInserted = query.executeUpdate();
-            System.out.println("Rows inserted: " + rowsInserted);
+            System.out.println(
+                    "Added class type. Rows inserted: " + rowsInserted);
             query.close();
         }
         catch(SQLException e)
@@ -964,7 +992,7 @@ public class GymEnrollmentSystem
                 JOIN Instructor ON (Class.instructorId = Instructor.id)
                 JOIN ClassType ON (Class.typeId = ClassType.id)
                 JOIN Room ON (Class.roomId = Room.id)
-            WHERE Member.memberNumber = ? AND Class.startTime::date = ?::date
+            WHERE Member.memberNumber = ? AND Class.startTime::DATE = ?::DATE
             ORDER BY Class.startTime;
             """
         );
@@ -1018,7 +1046,7 @@ public class GymEnrollmentSystem
                 JOIN Class ON (Instructor.id = Class.instructorId)
                 JOIN ClassType ON (Class.typeId = ClassType.id)
                 JOIN Room ON (Class.roomId = Room.id)
-            WHERE Instructor.instructorNumber = ? AND Class.startTime::date = ?::date
+            WHERE Instructor.instructorNumber = ? AND Class.startTime::DATE = ?::DATE
             ORDER BY Class.startTime;
             """
         );
@@ -1040,14 +1068,14 @@ public class GymEnrollmentSystem
         PreparedStatement query = conn.prepareStatement("""
             SELECT Instructor.firstname AS instructor_firstname, 
                 Instructor.lastname AS instructor_lastname, 
-                Room.roomnumber AS room_number, 
-                Class.starttime AS start_time, Class.duration
+                Room.roomNumber AS room_number, 
+                Class.startTime AS start_time, Class.duration
             FROM Class
-                JOIN Instructor ON (Class.instructorid = Instructor.id)
-                JOIN Room ON (Class.roomid = Room.id)
-                JOIN ClassType ON (Class.typeid = ClassType.id)
+                JOIN Instructor ON (Class.instructorId = Instructor.id)
+                JOIN Room ON (Class.roomId = Room.id)
+                JOIN ClassType ON (Class.typeId = ClassType.id)
             WHERE ClassType.name = ?
-            ORDER BY Class.starttime;
+            ORDER BY Class.startTime;
             """
         );
         query.setString(1, classType);
@@ -1075,7 +1103,7 @@ public class GymEnrollmentSystem
                 JOIN Instructor ON (Class.instructorId = Instructor.id)
                 JOIN Room ON (Class.roomId = Room.id)
                 JOIN ClassType ON (Class.typeId = ClassType.id)
-            WHERE ClassType.name = ? AND Class.startTime::date = ?::date
+            WHERE ClassType.name = ? AND Class.startTime::DATE = ?::DATE
             ORDER BY Class.startTime;
             """
         );
