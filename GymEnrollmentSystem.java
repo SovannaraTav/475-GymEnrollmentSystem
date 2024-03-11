@@ -1069,7 +1069,8 @@ public class GymEnrollmentSystem
             SELECT Instructor.firstname AS instructor_firstname, 
                 Instructor.lastname AS instructor_lastname, 
                 Room.roomNumber AS room_number, 
-                Class.startTime AS start_time, Class.duration
+                Class.startTime AS start_time, Class.duration,
+                classNumber
             FROM Class
                 JOIN Instructor ON (Class.instructorId = Instructor.id)
                 JOIN Room ON (Class.roomId = Room.id)
@@ -1115,4 +1116,81 @@ public class GymEnrollmentSystem
         query.close();
         return output;
     }
+    /** #34
+     * @Author Adam
+     * @return Formatted String Table of all classes of a given class type on a given
+     * day.
+     */
+    public static String getAllClassType()
+            throws SQLException
+    {
+        PreparedStatement query = conn.prepareStatement("""
+            SELECT name
+            FROM ClassType;
+            """
+        );
+        ResultSet result = query.executeQuery();
+        String output = Util.parseDataBase(result);
+        result.close();
+        query.close();
+        return output;
+    }
+    /** #35
+     * @Author Adam
+     * @return Formatted String Table of all classes of a given class type on a given
+     * day.
+     */
+    public static String getAllRoom()
+            throws SQLException
+    {
+        PreparedStatement query = conn.prepareStatement("""
+            SELECT roomNumber, capacity
+            FROM Room;
+            """
+        );
+        ResultSet result = query.executeQuery();
+        String output = Util.parseDataBase(result);
+        result.close();
+        query.close();
+        return output;
+    }
+    /** #36
+     * @Author Adam
+     * @return Formatted String Table of all classes of a given class type on a given
+     * day.
+     */
+    public static String getAllMember()
+            throws SQLException
+    {
+        PreparedStatement query = conn.prepareStatement("""
+            SELECT firstName, lastName, email, phoneNumber, lastPayment, startDate, memberNumber
+            FROM Member;
+            """
+        );
+        ResultSet result = query.executeQuery();
+        String output = Util.parseDataBase(result);
+        result.close();
+        query.close();
+        return output;
+    }
+    /** #37
+     * @Author Adam
+     * @return Formatted String Table of all classes of a given class type on a given
+     * day.
+     */
+    public static String getAllInstructor()
+            throws SQLException
+    {
+        PreparedStatement query = conn.prepareStatement("""
+            SELECT firstName, lastName, email, phoneNumber, instructorNumber
+            FROM Instructor;
+            """
+        );
+        ResultSet result = query.executeQuery();
+        String output = Util.parseDataBase(result);
+        result.close();
+        query.close();
+        return output;
+    }
+
 }

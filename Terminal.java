@@ -330,13 +330,27 @@ public class Terminal
                     classType, date));
             break;
           }
+          case 34: {
+            System.out.println(GymEnrollmentSystem.getAllClassType());
+            break;
+          }
+          case 35: {
+            System.out.println(GymEnrollmentSystem.getAllRoom());
+            break;
+          }
+          case 36: {
+            System.out.println(GymEnrollmentSystem.getAllMember());
+            break;
+          }
+          case 37: {
+            System.out.println(GymEnrollmentSystem.getAllInstructor());
+            break;
+          }
         }
       }
       catch (SQLException e)
       {
         System.out.println("Error");
-        System.out.println(e.toString());
-        System.out.println();
       }
     }
     System.out.println("Exiting system. Database connection closed");
@@ -411,7 +425,10 @@ public class Terminal
     System.out.println("30 - getGymInstructorClasses()");
     System.out.println("31 - getGymInstructorClasses() on a given day");
     System.out.println("32 - getGymClassByClassType()");
-    System.out.println("33 - getGymClassByClassType() on a given day");
+    System.out.println("34 - getAllClassType()");
+    System.out.println("35 - getAllRoom()");
+    System.out.println("36 - getAllMember()");
+    System.out.println("37 - getAllInstructor()");
   }
 
   public static void dealWithUnsuccessfulTransaction(boolean isSuccessful)

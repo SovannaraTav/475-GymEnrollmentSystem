@@ -135,17 +135,7 @@ VALUES
     ('Meditation'),
     ('Boxing'),
     ('Cycling'),
-    ('HIIT'),
-    ('Kickboxing'),
-    ('Functional Training'),
-    ('Suspension Training'),
-    ('Boot Camp'),
-    ('Aerobics'),
-    ('Spin Class'),
-    ('Barre'),
-    ('CrossFit'),
-    ('Aqua Fitness'),
-    ('Senior Fitness');
+    ('HIIT');
 
 -- Starter data inserted into the Room table
 INSERT INTO Room
@@ -160,17 +150,7 @@ VALUES
     ('107', 8),
     ('108', 20),
     ('109', 16),
-    ('110', 18),
-    ('111', 35),
-    ('112', 40),
-    ('113', 45),
-    ('114', 50),
-    ('115', 5),
-    ('116', 8),
-    ('117', 10),
-    ('118', 12),
-    ('119', 15),
-    ('120', 20);
+    ('110', 18);
 
 -- Starter data inserted into the Class table
 INSERT INTO Class
@@ -204,23 +184,35 @@ VALUES
     (1, 1),
     (1, 2),
     (2, 3),
+    (2, 17),
     (3, 4),
     (3, 5),
+    (3, 8),
     (4, 1),
     (4, 2),
+    (4, 8),
+    (4, 12),
+    (4, 15),
     (5, 3),
     (5, 4),
+    (5, 16),
     (1, 5),
     (6, 6),
     (6, 7),
     (7, 8),
     (7, 9),
+    (7, 17),
+    (7, 18),
     (8, 10),
+    (8, 11),
+    (8, 14),
     (8, 1),
     (9, 2),
     (9, 3),
-    (10, 4),
-    (10, 5);
+    (9, 19),
+    (10, 5),
+    (10, 13),
+    (10, 20);
 
 \c postgres
 \c gym
