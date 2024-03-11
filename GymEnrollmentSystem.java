@@ -1117,9 +1117,8 @@ public class GymEnrollmentSystem
         return output;
     }
     /** #34
-     * @Author Adam
-     * @return Formatted String Table of all classes of a given class type on a given
-     * day.
+     * @Author Adam Chhor
+     * @return Formatted String Table of all class types
      */
     public static String getAllClassType()
             throws SQLException
@@ -1136,9 +1135,8 @@ public class GymEnrollmentSystem
         return output;
     }
     /** #35
-     * @Author Adam
-     * @return Formatted String Table of all classes of a given class type on a given
-     * day.
+     * @Author Adam Chhor
+     * @return Formatted String Table of all Rooms
      */
     public static String getAllRoom()
             throws SQLException
@@ -1156,8 +1154,7 @@ public class GymEnrollmentSystem
     }
     /** #36
      * @Author Adam
-     * @return Formatted String Table of all classes of a given class type on a given
-     * day.
+     * @return Formatted String Table of all Members information
      */
     public static String getAllMember()
             throws SQLException
@@ -1175,8 +1172,7 @@ public class GymEnrollmentSystem
     }
     /** #37
      * @Author Adam
-     * @return Formatted String Table of all classes of a given class type on a given
-     * day.
+     * @return Formatted String Table of all Instructors
      */
     public static String getAllInstructor()
             throws SQLException
